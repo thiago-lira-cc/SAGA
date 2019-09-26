@@ -44,4 +44,11 @@ public class Cliente {
 		return true;
 	}
 
+	public void altera(String nomeNovo, String emailNovo, String localizacaoNova) {
+		this.nome = nomeNovo;
+		this.email = emailNovo;
+		this.localizacao = localizacaoNova;
+		
+	}
+
 }

@@ -16,12 +16,12 @@ public class Facade {
 		return controleClientes.retornar(cpf);
 	}
 	
-	public boolean editaCliente() {
-		return controleClientes.editar();
+	public boolean editaCliente(String cpf, String nome, String email, String localizacao) {
+		return controleClientes.editar(cpf, nome, email, localizacao);
 	}
 	
-	public boolean removeCliente() {
-		return controleClientes.remove();
+	public boolean removeCliente(String cpf) {
+		return controleClientes.remove(cpf);
 	}
 	
 }

@@ -21,22 +21,37 @@ public class ControllerCliente {
 	}
 
 	public String retornar(String cpf) {
-		// TODO Auto-generated method stub
-		return null;
+		String resultado = "Cliente não encontrado!";
+		if (clientes.containsKey(cpf)) {
+			resultado = clientes.get(cpf).toString();
+		}
+		return resultado;
 	}
 	
 	public String retornarTodos() {
-		return null;
+		String resultado = "";
+		for (String cliente : clientes.keySet()) {
+			resultado += clientes.get(cliente).toString()+" | ";
+		}
+		return resultado;
 	}
 
-	public boolean editar() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean editar(String cpf, String nome, String email, String localizacao) {
+		boolean resultado = false;
+		if (clientes.containsKey(cpf)) {
+			clientes.get(cpf).altera(nome, email, localizacao);
+			resultado = true;
+		}
+		return resultado;
 	}
 
-	public boolean remove() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean remove(String cpf) {
+		boolean resultado = false;
+		if(clientes.containsKey(cpf)) {
+			clientes.remove(cpf);
+			resultado = true;
+		}
+		return resultado;
 	}
 
 }
