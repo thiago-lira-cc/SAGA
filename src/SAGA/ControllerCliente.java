@@ -10,7 +10,7 @@ public class ControllerCliente {
 		this.clientes = new HashMap<>();
 	}
 
-	public String cadastra(String cpf, String nome, String email, String localizacao) {
+	public String cadastrar(String cpf, String nome, String email, String localizacao) {
 		String resultado = "Cliente já cadastrado!";
 		if(!clientes.containsKey(cpf)) {
 			Cliente cliente = new Cliente(cpf, nome, email, localizacao);
@@ -28,7 +28,7 @@ public class ControllerCliente {
 		return resultado;
 	}
 	
-	public String retornarTodos() {
+	public String retornarClientes() {
 		String resultado = "";
 		for (String cliente : clientes.keySet()) {
 			resultado += clientes.get(cliente).toString()+" | ";
@@ -45,7 +45,7 @@ public class ControllerCliente {
 		return resultado;
 	}
 
-	public boolean remove(String cpf) {
+	public boolean remover(String cpf) {
 		boolean resultado = false;
 		if(clientes.containsKey(cpf)) {
 			clientes.remove(cpf);
