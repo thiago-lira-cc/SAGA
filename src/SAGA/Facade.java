@@ -5,7 +5,7 @@ public class Facade {
 	private ControllerCliente controleClientes;
 	private ControllerFornecedorProduto controleFornecedoresProdutos;
 	
-	public Facade(ControllerCliente controlCli) {
+	public Facade() {
 		this.controleClientes = new ControllerCliente();
 		this.controleFornecedoresProdutos = new ControllerFornecedorProduto();
 	}
