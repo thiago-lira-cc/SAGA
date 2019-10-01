@@ -10,8 +10,8 @@ public class Facade {
 		this.controleFornecedoresProdutos = new ControllerFornecedorProduto();
 	}
 
-	public String cadastrarCliente(String cpf, String nome, String email, String localizacao) {
-		return controleClientes.cadastrar(cpf, nome, email, localizacao);
+	public String adicionaCliente(String cpf, String nome, String email, String localizacao) {
+		return controleClientes.adicionar(cpf, nome, email, localizacao);
 	}
 	
 	public String retornaCliente(String cpf) {
