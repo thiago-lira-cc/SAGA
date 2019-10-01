@@ -108,5 +108,9 @@ public class Fornecedor {
 		}
 		return resultado;
 	}
+
+	public String getNome() {
+		return nome;
+	}
 	
 }

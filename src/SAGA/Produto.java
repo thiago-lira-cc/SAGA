@@ -15,6 +15,11 @@ public class Produto {
 		this.nome = nomeProduto;
 		this.descricao = descricaoProduto;
 	}
+	
+	@Override
+	public String toString() {
+		return nome + " - " + descricao + " - " + preco;
+	}
 
 	@Override
 	public int hashCode() {
