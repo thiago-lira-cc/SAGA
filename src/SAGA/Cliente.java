@@ -2,12 +2,21 @@ package SAGA;
 
 public class Cliente {
 	
+	private Excessao excessao = new Excessao();
 	private String cpf;
 	private String nome;
 	private String email;
 	private String localizacao;
 	
 	public Cliente(String cpf, String nome, String email, String localizacao) {
+		excessao.verificaStringVazia(cpf, "Erro no cadastro do cliente: cpf nao pode ser vazio ou nulo.");
+		excessao.verificaStringVazia(nome, "Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
+		excessao.verificaStringVazia(localizacao, "Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
+		excessao.verificaStringVazia(email, "Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
+		excessao.verificaStringNula(nome, "Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
+		excessao.verificaStringNula(cpf, "Erro no cadastro do cliente: cpf nao pode ser vazio ou nulo.");
+		excessao.verificaStringNula(email, "Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
+		excessao.verificaStringNula(localizacao, "Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;

@@ -40,6 +40,7 @@ public class ControllerFornecedorProduto {
 		boolean resultado = false;
 		if (fornecedores.containsKey(nome)) {
 			fornecedores.get(nome).alteraFornecedor(email, telefone);
+			resultado = true;
 		}
 		return resultado;
 	}
@@ -56,13 +57,13 @@ public class ControllerFornecedorProduto {
 	public boolean cadastrarProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto, String precoProduto) {
 		boolean resultado = false;
 		if(fornecedores.containsKey(nomeFornecedor)) {
-			resultado = fornecedores.get(nomeProduto).cadastraProduto(nomeProduto, descricaoProduto, precoProduto);
+			resultado = fornecedores.get(nomeFornecedor).cadastraProduto(nomeProduto, descricaoProduto, precoProduto);
 		}
 		return resultado;
 	}
 
 	public String retornarProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto) {
-		String resultado = "Fornecedor não cadstrado!";
+		String resultado = "Fornecedor não cadastrado!";
 		if (fornecedores.containsKey(nomeFornecedor)) {
 			Produto produto = new Produto(nomeProduto, descricaoProduto);
 			if (fornecedores.get(nomeFornecedor).contemProduto(produto)) {
@@ -85,7 +86,7 @@ public class ControllerFornecedorProduto {
 	public String retronarProdutos() {
 		String resultado = "";
 		for (String fornecedor : fornecedores.keySet()) {
-			resultado += fornecedores.get(fornecedor).getNome() +" - "+ fornecedores.get(fornecedor).retornaProdutosFornecedor() + " | ";
+			resultado += fornecedores.get(fornecedor).getNome() +" - "+ fornecedores.get(fornecedor).retornaProdutosFornecedor();
 		}
 		return resultado;
 	}

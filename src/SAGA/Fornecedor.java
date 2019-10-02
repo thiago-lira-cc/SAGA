@@ -104,6 +104,7 @@ public class Fornecedor {
 		for (Produto produtoA : produtos) {
 			if (produtoA.equals(produtoB)) {
 				produtos.remove(produtoA);
+				resultado = true;
 			}
 		}
 		return resultado;

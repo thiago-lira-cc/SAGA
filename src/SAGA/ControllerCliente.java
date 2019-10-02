@@ -12,11 +12,7 @@ public class ControllerCliente {
 
 	public String adicionar(String cpf, String nome, String email, String localizacao) {
 		String resultado = "Cliente já cadastrado!";
-		if(nome==null) {
-			resultado = "Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.";
-		}else if(nome.equals("")) {
-			resultado = "Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.";
-		}else if(!clientes.containsKey(cpf)) {
+		if(!clientes.containsKey(cpf)) {
 			Cliente cliente = new Cliente(cpf, nome, email, localizacao);
 			clientes.put(cpf, cliente);
 			resultado = cpf;
