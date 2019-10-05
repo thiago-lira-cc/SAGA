@@ -11,26 +11,26 @@ public class Facade {
 	}
 
 	public String adicionaCliente(String cpf, String nome, String email, String localizacao) {
-		return controleClientes.adicionar(cpf, nome, email, localizacao);
+		return controleClientes.adicionaCliente(cpf, nome, email, localizacao);
 	}
 	
-	public String retornaCliente(String cpf) {
-		return controleClientes.retornar(cpf);
+	public String exibeCliente(String cpf) {
+		return controleClientes.exibeCliente(cpf);
 	}
 	
 	public String retornarClientes() {
 		return controleClientes.retornarClientes();
 	}
 	
-	public boolean editarCliente(String cpf, String nome, String email, String localizacao) {
-		return controleClientes.editar(cpf, nome, email, localizacao);
+	public boolean editaCliente(String cpf, String atributo, String novoValor) {
+		return controleClientes.editaCliente(cpf, atributo, novoValor);
 	}
 	
-	public boolean removerCliente(String cpf) {
+	public boolean removeCliente(String cpf) {
 		return controleClientes.remover(cpf);
 	}
 	
-	public String cadastrarFornecedor(String nome, String email, String telefone) {
+	public String adicionaFornecedor(String nome, String email, String telefone) {
 		return controleFornecedoresProdutos.cadastrarFornecedor(nome, email, telefone);
 	}
 	

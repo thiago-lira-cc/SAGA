@@ -53,11 +53,18 @@ public class Cliente {
 		return true;
 	}
 
-	public void altera(String nomeNovo, String emailNovo, String localizacaoNova) {
-		this.nome = nomeNovo;
-		this.email = emailNovo;
-		this.localizacao = localizacaoNova;
-		
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setLocalizacao(String localizacao) {
+		this.localizacao = localizacao;
+	}
+
+	
 
 }

@@ -23,8 +23,8 @@ class testeControlCliente {
 	
 	@Test
 	public void testRetornaCliente() {
-		assertEquals("João Belo - SPLAB - joao.belo@mail.com", controlCli.retornar("123"));
-		assertEquals("Cliente não encontrado!", controlCli.retornar("789"));
+		assertEquals("João Belo - SPLAB - joao.belo@mail.com", controlCli.exibeCliente("123"));
+		assertEquals("Cliente não encontrado!", controlCli.exibeCliente("789"));
 	}
 	
 	@Test
@@ -34,9 +34,9 @@ class testeControlCliente {
 	
 	@Test
 	public void testEditarCliente() {
-		assertEquals("João Belo - SPLAB - joao.belo@mail.com", controlCli.retornar("123"));
+		assertEquals("João Belo - SPLAB - joao.belo@mail.com", controlCli.exibeCliente("123"));
 		assertEquals(true, controlCli.editar("123", "Roberval", "roberval@boll.com", "CX"));
-		assertEquals("Roberval - CX - roberval@boll.com", controlCli.retornar("123"));
+		assertEquals("Roberval - CX - roberval@boll.com", controlCli.exibeCliente("123"));
 	}
 	
 	@Test

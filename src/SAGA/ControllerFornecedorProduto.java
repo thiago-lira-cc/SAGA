@@ -5,19 +5,22 @@ import java.util.HashMap;
 public class ControllerFornecedorProduto {
 	
 	private HashMap<String, Fornecedor> fornecedores;
+	private Excessao excessao;
 
 	public ControllerFornecedorProduto() {
 		this.fornecedores = new HashMap<String, Fornecedor>();
+		this.excessao = new Excessao(); 
 	}
 
 	public String cadastrarFornecedor(String nome, String email, String telefone) {
-		String resultado = "Fornecedor já cadastrado!";
 		if(!fornecedores.containsKey(nome)) {
+			excessao.verificaFornecedor(nome, email, telefone);
 			Fornecedor fornecedor = new Fornecedor(nome, email, telefone);
 			fornecedores.put(nome, fornecedor);
-			resultado = nome;
+			return nome;
+		}else {
+			throw new IllegalArgumentException("Erro no cadastro de fornecedor: fornecedor ja existe.");
 		}
-		return resultado;
 	}
 
 	public String retornarFornecedor(String nome) {
