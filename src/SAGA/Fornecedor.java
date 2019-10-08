@@ -1,19 +1,19 @@
 package SAGA;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 public class Fornecedor {
 
 	private String nome;
 	private String email;
 	private String telefone;
-	private HashSet<Produto> produtos;
+	private LinkedHashSet<Produto> produtos;
 	
 	public Fornecedor(String nome, String email, String telefone) {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
-		this.produtos = new HashSet<Produto>();
+		this.produtos = new LinkedHashSet<Produto>();
 	}
 
 	@Override
@@ -46,13 +46,19 @@ public class Fornecedor {
 		return nome + " - " + email + " - " + telefone;
 	}
 
-	public void alteraFornecedor(String email2, String telefone2) {
-		this.email = email2;
-		this.telefone = telefone2;
-		
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public boolean cadastraProduto(String nomeProduto, String descricaoProduto, String precoProduto) {
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public boolean cadastraProduto(String nomeProduto, String descricaoProduto, double precoProduto) {
 		boolean resultado = false;
 		Produto produto = new Produto(nomeProduto, descricaoProduto, precoProduto);
 		if (!produtos.contains(produto)) {
@@ -88,7 +94,7 @@ public class Fornecedor {
 		return resultado;
 	}
 
-	public boolean editarProduto(Produto produtoB, String precoProduto) {
+	public boolean editarProduto(Produto produtoB, double precoProduto) {
 		boolean resultado = false;
 		for (Produto produtoA : produtos) {
 			if (produtoA.equals(produtoB)) {

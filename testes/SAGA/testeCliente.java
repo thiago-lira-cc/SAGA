@@ -34,12 +34,5 @@ class testeCliente {
 		assertEquals(true, cliente.equals(cliente3));
 		assertEquals(false, cliente.equals(cliente2));
 	}
-	
-	@Test
-	public void testAlterarCliente() {
-		assertEquals("Irineu - LACAL - vcnaosabe@nemeu.com", cliente.toString());
-		cliente.altera("Klebinho", "Klebinho@domal", "Praia do rosa");
-		assertEquals("Klebinho - Praia do rosa - Klebinho@domal", cliente.toString());
-	}
 
 }

@@ -3,9 +3,9 @@ package SAGA;
 public class Produto {
 	private String nome;
 	private String descricao;
-	private String preco;
+	private double preco;
 	
-	public Produto(String nome, String descricao, String preco) {
+	public Produto(String nome, String descricao, double preco) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
@@ -52,7 +52,7 @@ public class Produto {
 		return true;
 	}
 
-	public void setPreco(String preco) {
+	public void setPreco(double preco) {
 		this.preco = preco;
 	}
 	

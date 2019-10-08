@@ -15,13 +15,13 @@ public class ControllerCliente {
 	 * Mapa de clientes identificados pelo cpf - chave-, que guarda objetos Cliente
 	 */
 	private HashMap<String, Cliente> clientes;
-	private Excessao excessao;
+	private Excecao excessao;
 	/*
 	 * Construtor que inicia o mapa de clientes
 	 */
 	public ControllerCliente() {
 		this.clientes = new HashMap<>();
-		this.excessao  = new Excessao();
+		this.excessao  = new Excecao();
 	}
 
 	/*
@@ -37,7 +37,6 @@ public class ControllerCliente {
 	 * @return String
 	 */
 	public String adicionaCliente(String cpf, String nome, String email, String localizacao) {
-		String msg = "Erro no cadastro do cliente: cliente ja existe.";
 		//Verifica se o cliente já está cadastrado
 		if(!clientes.containsKey(cpf)) {
 			excessao.verificaCpfCadastro(cpf);
@@ -48,7 +47,7 @@ public class ControllerCliente {
 			//Retorna o cpf
 			return cpf;
 		}
-		throw new IllegalArgumentException(msg);
+		throw new IllegalArgumentException("Erro no cadastro do cliente: cliente ja existe.");
 	}
 	/*
 	 * Método que retorna - mostra - um cliente pelo cpf

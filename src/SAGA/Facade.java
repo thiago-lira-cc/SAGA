@@ -34,7 +34,7 @@ public class Facade {
 		return controleFornecedoresProdutos.cadastrarFornecedor(nome, email, telefone);
 	}
 	
-	public String retornarFornecedor(String nome) {
+	public String exibeFornecedor(String nome) {
 		return controleFornecedoresProdutos.retornarFornecedor(nome);
 	}
 	
@@ -42,15 +42,15 @@ public class Facade {
 		return controleFornecedoresProdutos.retornarFornecedores();
 	}
 	
-	public boolean editarFornecedor(String nome, String email, String telefone) {
-		return controleFornecedoresProdutos.editarFornecedor(nome, email, telefone);
+	public boolean editaFornecedor(String nome, String atributo, String novoValor) {
+		return controleFornecedoresProdutos.editarFornecedor(nome, atributo, novoValor);
 	}
 	
-	public boolean removerFornecedor(String nome) {
+	public boolean removeFornecedor(String nome) {
 		return controleFornecedoresProdutos.removerFornecedor(nome);
 	}
 	
-	public boolean cadastrarProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto, String precoProduto) {
+	public boolean adicionaProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto, double precoProduto) {
 		return controleFornecedoresProdutos.cadastrarProduto(nomeFornecedor, nomeProduto, descricaoProduto, precoProduto);
 	}
 	
@@ -66,7 +66,7 @@ public class Facade {
 		return controleFornecedoresProdutos.retronarProdutos();
 	}
 	
-	public boolean editarProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto, String precoProduto) {
+	public boolean editarProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto, double precoProduto) {
 		return controleFornecedoresProdutos.editarProduto(nomeFornecedor, nomeProduto, descricaoProduto, precoProduto);
 	}
 	

@@ -1,6 +1,6 @@
 package SAGA;
 
-public class Excessao {
+public class Excecao {
 
 	public void verificaStringVazia(String valor, String msg) {
 		if("".equals(valor)) {
@@ -98,6 +98,18 @@ public class Excessao {
 		if (telefone.equals("")) {
 			throw new IllegalArgumentException("Erro no cadastro do fornecedor: telefone nao pode ser vazio ou nulo.");
 		}
+	}
+
+	public static void veriEditaForn(String atributo, String novoValor) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void verificaPreco(double precoProduto, String msg) {
+		if(precoProduto<0) {
+			throw new IllegalArgumentException(msg);
+		}
+		
 	}
 	
 }
