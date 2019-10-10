@@ -13,8 +13,8 @@ class testeProduto {
 	
 	@BeforeEach
 	public void criaProduto() {
-		produto = new Produto("Suco", "Suco de laranja", "2.50");
-		produto2 = new Produto("Doce", "Doce de banana", "4.00");
+		//produto = new Produto("Suco", "Suco de laranja", "2.50");
+		//produto2 = new Produto("Doce", "Doce de banana", "4.00");
 		produto3 = new Produto("Suco", "Suco de laranja");
 	}
 	
@@ -38,7 +38,7 @@ class testeProduto {
 	@Test
 	public void testSetPreco() {
 		assertEquals("Suco - Suco de laranja - 2.50", produto.toString());
-		produto.setPreco("1.50");
+		//produto.setPreco("1.50");
 		assertEquals("Suco - Suco de laranja - 1.50", produto.toString());
 	}
 

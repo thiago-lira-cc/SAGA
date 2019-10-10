@@ -54,8 +54,8 @@ public class Facade {
 		return controleFornecedoresProdutos.cadastrarProduto(nomeFornecedor, nomeProduto, descricaoProduto, precoProduto);
 	}
 	
-	public String retornarProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto) {
-		return controleFornecedoresProdutos.retornarProduto(nomeFornecedor, nomeProduto, descricaoProduto);
+	public String exibeProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
+		return controleFornecedoresProdutos.retornarProduto(nomeProduto, descricaoProduto, nomeFornecedor);
 	}
 	
 	public String retornarProdutosFornecedor(String nomeFornecedor) {

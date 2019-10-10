@@ -2,19 +2,24 @@ package SAGA;
 
 public class Cliente {
 	
-	private Excecao excessao = new Excecao();
+	private Excecao excecao = new Excecao();
 	private String cpf;
 	private String nome;
 	private String email;
 	private String localizacao;
 	
 	public Cliente(String cpf, String nome, String email, String localizacao) {
-		excessao.verificaStringVazia(nome, "Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
-		excessao.verificaStringVazia(localizacao, "Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
-		excessao.verificaStringVazia(email, "Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
-		excessao.verificaStringNula(nome, "Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
-		excessao.verificaStringNula(email, "Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
-		excessao.verificaStringNula(localizacao, "Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
+		excecao.verificaStringNula(cpf, "Erro no cadastro do cliente: cpf nao pode ser vazio ou nulo.");
+		excecao.verificaStringVazia(cpf, "Erro no cadastro do cliente: cpf nao pode ser vazio ou nulo.");
+		excecao.verificaStringVazia(nome, "Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
+		excecao.verificaStringVazia(localizacao, "Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
+		excecao.verificaStringVazia(email, "Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
+		excecao.verificaStringNula(nome, "Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
+		excecao.verificaStringNula(email, "Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
+		excecao.verificaStringNula(localizacao, "Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
+		if(cpf.length()!=11) {
+			throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido.");
+		}
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;

@@ -14,7 +14,6 @@ public class ControllerFornecedorProduto {
 
 	public String cadastrarFornecedor(String nome, String email, String telefone) {
 		if(!fornecedores.containsKey(nome)) {
-			excecao.verificaFornecedor(nome, email, telefone);
 			Fornecedor fornecedor = new Fornecedor(nome, email, telefone);
 			fornecedores.put(nome, fornecedor);
 			return nome;
@@ -88,24 +87,30 @@ public class ControllerFornecedorProduto {
 			excecao.verificaStringVazia(nomeProduto, "Erro no cadastro de produto: nome nao pode ser vazio ou nulo.");
 			excecao.verificaStringNula(descricaoProduto, "Erro no cadastro de produto: descricao nao pode ser vazia ou nula.");
 			excecao.verificaStringVazia(descricaoProduto, "Erro no cadastro de produto: descricao nao pode ser vazia ou nula.");
+			Produto produto = new Produto(nomeProduto, descricaoProduto); 
+			if(this.fornecedores.get(nomeFornecedor).contemProduto(produto)) {
+				throw new IllegalArgumentException("Erro no cadastro de produto: produto ja existe.");
+			}
+
 			resultado = fornecedores.get(nomeFornecedor).cadastraProduto(nomeProduto, descricaoProduto, precoProduto);
 		}else {
-			throw new IllegalArgumentException("Erro no cadastro de produto: fornecedor ja existe.");
+			throw new IllegalArgumentException("Erro no cadastro de produto: fornecedor nao existe.");
 		}
 		return resultado;
 	}
 
-	public String retornarProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto) {
-		String resultado = "Fornecedor não cadastrado!";
+	public String retornarProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
+		excecao.verificaStringNula(nomeFornecedor, "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.");
+		excecao.verificaStringVazia(nomeFornecedor, "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.");
 		if (fornecedores.containsKey(nomeFornecedor)) {
 			Produto produto = new Produto(nomeProduto, descricaoProduto);
 			if (fornecedores.get(nomeFornecedor).contemProduto(produto)) {
-				resultado = fornecedores.get(nomeFornecedor).getNome() +" - "+ fornecedores.get(nomeFornecedor).getProduto(produto);
+				return fornecedores.get(nomeFornecedor).getProduto(produto);
 			}else {
-				resultado = "Produto não cadastrado!";
+				throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
 			}
 		}
-		return resultado;
+		throw new IllegalArgumentException("Erro na exibicao de produto: fornecedor nao existe.");
 	}
 
 	public String retornarProdutosFornecedor(String nomeFornecedor) {

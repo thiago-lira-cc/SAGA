@@ -13,7 +13,7 @@ private ControllerFornecedorProduto controlFornProd;
 	public void criaFachada() {
 		controlFornProd = new ControllerFornecedorProduto();
 		controlFornProd.cadastrarFornecedor("Inês Brasil", "inesxuxu@mail.com", "8954-3275");
-		controlFornProd.cadastrarProduto("Inês Brasil", "Suco", "Suco de laranja", "1.50");
+		controlFornProd.cadastrarProduto("Inês Brasil", "Suco", "Suco de laranja", 1.50);
 		
 	}
 	
@@ -50,9 +50,9 @@ private ControllerFornecedorProduto controlFornProd;
 	@Test
 	public void testAdicionaProduto() {
 		controlFornProd.cadastrarFornecedor("Inês Brasil", "inesxuxu@mail.com", "8954-3275");
-		assertEquals(true, controlFornProd.cadastrarProduto("Inês Brasil", "Suco", "Suco de morango", "1.50"));
-		assertEquals(false, controlFornProd.cadastrarProduto("Clodovil", "Suco", "Suco de uva", "1.50"));
-		assertEquals(false, controlFornProd.cadastrarProduto("Inês Brasil", "Suco", "Suco de laranja", "1.50"));
+		assertEquals(true, controlFornProd.cadastrarProduto("Inês Brasil", "Suco", "Suco de morango", 1.50));
+		assertEquals(false, controlFornProd.cadastrarProduto("Clodovil", "Suco", "Suco de uva", 1.50));
+		assertEquals(false, controlFornProd.cadastrarProduto("Inês Brasil", "Suco", "Suco de laranja", 1.50));
 	}
 	
 	@Test
@@ -63,21 +63,21 @@ private ControllerFornecedorProduto controlFornProd;
 	@Test
 	public void testRetornaProdutosFornecedor() {
 		assertEquals("Inês Brasil - Suco - Suco de laranja - 1.50 | ", controlFornProd.retornarProdutosFornecedor("Inês Brasil"));
-		controlFornProd.cadastrarProduto("Inês Brasil", "Suco", "Suco de uva", "1.50");
+		controlFornProd.cadastrarProduto("Inês Brasil", "Suco", "Suco de uva", 1.50);
 		assertEquals("Inês Brasil - Suco - Suco de laranja - 1.50 | Suco - Suco de uva - 1.50 | ", controlFornProd.retornarProdutosFornecedor("Inês Brasil"));
 	}
 	
 	@Test
 	public void testRetornaProdutos() {
 		controlFornProd.cadastrarFornecedor("Jurubinha", "jurubinhadoce@mail.com", "5684-7213");
-		controlFornProd.cadastrarProduto("Jurubinha", "jujuba", "jujubas mistas", "1,00");
+		controlFornProd.cadastrarProduto("Jurubinha", "jujuba", "jujubas mistas", 1.00);
 		assertEquals("Inês Brasil - Suco - Suco de laranja - 1.50 | Jurubinha - jujuba - jujubas mistas - 1,00 | ", controlFornProd.retronarProdutos());
 	}
 	
 	@Test
 	public void testEditarProduto() {
 		assertEquals("Inês Brasil - Suco - Suco de laranja - 1.50", controlFornProd.retornarProduto("Inês Brasil", "Suco", "Suco de laranja"));
-		assertEquals(true, controlFornProd.editarProduto("Inês Brasil", "Suco", "Suco de laranja", "2.00"));
+		assertEquals(true, controlFornProd.editarProduto("Inês Brasil", "Suco", "Suco de laranja", 2.00));
 		assertEquals("Inês Brasil - Suco - Suco de laranja - 2.00", controlFornProd.retornarProduto("Inês Brasil", "Suco", "Suco de laranja"));
 	}
 	

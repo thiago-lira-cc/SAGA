@@ -1,11 +1,14 @@
 package SAGA;
 
 public class Produto {
+	private Excecao excecao = new Excecao();
 	private String nome;
 	private String descricao;
 	private double preco;
 	
 	public Produto(String nome, String descricao, double preco) {
+		excecao.verificaStringNula(nome, "Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
+		excecao.verificaStringVazia(nome, "Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
@@ -18,7 +21,7 @@ public class Produto {
 	
 	@Override
 	public String toString() {
-		return nome + " - " + descricao + " - " + preco;
+		return nome + " - " + descricao + " - R$" + preco;
 	}
 
 	@Override
