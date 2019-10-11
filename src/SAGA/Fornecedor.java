@@ -1,14 +1,14 @@
 package SAGA;
 
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
 
-public class Fornecedor {
+public class Fornecedor extends ComparadorDeFornecedoresPorString{
 
 	private Excecao excecao = new Excecao();
 	private String nome;
 	private String email;
 	private String telefone;
-	private LinkedHashSet<Produto> produtos;
+	private ArrayList<Produto> produtos;
 	
 	public Fornecedor(String nome, String email, String telefone) {
 		excecao.verificaStringNula(nome, "Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.");
@@ -20,7 +20,7 @@ public class Fornecedor {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
-		this.produtos = new LinkedHashSet<Produto>();
+		this.produtos = new ArrayList<Produto>();
 	}
 
 	@Override
@@ -95,17 +95,22 @@ public class Fornecedor {
 
 	public String retornaProdutosFornecedor() {
 		String resultado = "";
-		for (Produto produto : produtos) {
-			resultado += produto.toString() + " | ";
+		for (int i = 0; i < produtos.size(); i++) {
+			if (i==produtos.size()-1) {
+				resultado += produtos.get(i).toString();
+			}else {
+				resultado += produtos.get(i).toString() + " | ";
+			}
 		}
+
 		return resultado;
 	}
 
-	public boolean editarProduto(Produto produtoB, double precoProduto) {
+	public boolean editarProduto(Produto produto, double novoPreco) {
 		boolean resultado = false;
-		for (Produto produtoA : produtos) {
-			if (produtoA.equals(produtoB)) {
-				produtoA.setPreco(precoProduto);
+		for (int i = 0; i < this.produtos.size(); i++) {
+			if (produtos.get(i).equals(produto)) {
+				produtos.get(i).setPreco(novoPreco);
 				resultado = true;
 			}
 		}
@@ -127,8 +132,12 @@ public class Fornecedor {
 		return nome;
 	}
 	
-	public LinkedHashSet<Produto> getProdutos(){
+	public ArrayList<Produto> getProdutos(){
 		return this.produtos;
 	}
 	
+	@Override
+	public int compare(Fornecedor fornecedor1, Fornecedor fornecedor2) {
+		return fornecedor1.getNome().compareTo(fornecedor2.getNome());
+	}
 }

@@ -18,7 +18,7 @@ public class Facade {
 		return controleClientes.exibeCliente(cpf);
 	}
 	
-	public String retornarClientes() {
+	public String exibeClientes() {
 		return controleClientes.retornarClientes();
 	}
 	
@@ -38,7 +38,7 @@ public class Facade {
 		return controleFornecedoresProdutos.retornarFornecedor(nome);
 	}
 	
-	public String retornarFornecedores() {
+	public String exibeFornecedores() {
 		return controleFornecedoresProdutos.retornarFornecedores();
 	}
 	
@@ -58,19 +58,20 @@ public class Facade {
 		return controleFornecedoresProdutos.retornarProduto(nomeProduto, descricaoProduto, nomeFornecedor);
 	}
 	
-	public String retornarProdutosFornecedor(String nomeFornecedor) {
+	public String exibeProdutosFornecedor(String nomeFornecedor) {
 		return controleFornecedoresProdutos.retornarProdutosFornecedor(nomeFornecedor);
 	}
 	
-	public String retornarProdutos() {
+	public String exibeProdutos() {
 		return controleFornecedoresProdutos.retronarProdutos();
 	}
 	
-	public boolean editarProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto, double precoProduto) {
-		return controleFornecedoresProdutos.editarProduto(nomeFornecedor, nomeProduto, descricaoProduto, precoProduto);
+	public boolean editaProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor,double novoPreco) {
+		return controleFornecedoresProdutos.editarProduto(nomeProduto, descricaoProduto, nomeFornecedor, novoPreco);
 	}
 	
-	public boolean removerProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto) {
-		return controleFornecedoresProdutos.removerProduto(nomeFornecedor, nomeProduto, descricaoProduto);
+	public boolean removeProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
+		return controleFornecedoresProdutos.removerProduto(nomeProduto, descricaoProduto, nomeFornecedor);
 	}
+
 }

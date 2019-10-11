@@ -1,6 +1,6 @@
 package SAGA;
 
-public class Cliente {
+public class Cliente extends ComparadorDeClientesPorString {
 	
 	private Excecao excecao = new Excecao();
 	private String cpf;
@@ -67,7 +67,12 @@ public class Cliente {
 	public void setLocalizacao(String localizacao) {
 		this.localizacao = localizacao;
 	}
+	public String getNome() {
+		return nome;
+	}
 
-	
-
+	@Override
+	public int compare(Cliente cliente1, Cliente cliente2) {
+		return cliente1.getNome().compareTo(cliente2.getNome());
+	}
 }

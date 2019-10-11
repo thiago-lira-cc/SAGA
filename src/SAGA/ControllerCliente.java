@@ -1,6 +1,9 @@
 package SAGA;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 /*
  * Classe responsável pelas operações com Cliente
  * Adiciona cliente
@@ -78,8 +81,14 @@ public class ControllerCliente {
 	 */
 	public String retornarClientes() {
 		String resultado = "";
-		for (String cliente : clientes.keySet()) {
-			resultado += clientes.get(cliente).toString()+" | ";
+		List<Cliente> clientes = new ArrayList<>(this.clientes.values());
+		Collections.sort(clientes, new ComparadorDeClientesPorString());
+		for (int i = 0; i < clientes.size(); i++) {
+			if (i==clientes.size()-1) {
+				resultado += clientes.get(i).toString();
+			}else {
+				resultado += clientes.get(i).toString()+" | ";
+			}
 		}
 		return resultado;
 	}

@@ -1,14 +1,12 @@
 package SAGA;
 
-public class Produto {
-	private Excecao excecao = new Excecao();
+public class Produto extends ComparadorDeProdutosPorString{
+
 	private String nome;
 	private String descricao;
 	private double preco;
 	
 	public Produto(String nome, String descricao, double preco) {
-		excecao.verificaStringNula(nome, "Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
-		excecao.verificaStringVazia(nome, "Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
@@ -21,7 +19,7 @@ public class Produto {
 	
 	@Override
 	public String toString() {
-		return nome + " - " + descricao + " - R$" + preco;
+		return nome + " - " + descricao + " - R$" +String.format("%.2f", preco);
 	}
 
 	@Override
@@ -55,8 +53,17 @@ public class Produto {
 		return true;
 	}
 
-	public void setPreco(double preco) {
-		this.preco = preco;
+	public String getNomeEDescricao() {
+		return nome+" - "+descricao;
+	}
+	
+	public void setPreco(double novoPreco) {
+		this.preco = novoPreco;
+	}
+	
+	@Override
+	public int compare(Produto produto1, Produto produto2) {
+		return produto1.getNomeEDescricao().compareTo(produto2.getNomeEDescricao());
 	}
 	
 }

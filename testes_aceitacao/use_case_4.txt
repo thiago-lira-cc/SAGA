@@ -1,0 +1,98 @@
+# Parte 2 do SAGA - US4. 
+
+## Criando novos clientes ##
+
+cliente6=adicionaCliente cpf="45617377078" nome="Robert Baratheon" email="robert.baratheon@ccc.ufcg.edu.br" localizacao="LSI"
+cliente7=adicionaCliente cpf="35760131052" nome="Ned Stark" email="ned.stark@ccc.ufcg.edu.br" localizacao="SPLab"
+cliente8=adicionaCliente cpf="83203139022" nome="Jaime Lannister" email="jaime.lannister@ccc.ufcg.edu.br" localizacao="LSD"
+cliente9=adicionaCliente cpf="45689691070" nome="Bran Stark" email="bran.stark@ccc.ufcg.edu.br" localizacao="Labarc"
+cliente10=adicionaCliente cpf="65710869058" nome="Arya Stark" email="arya.stark@ccc.ufcg.edu.br" localizacao="Embedded"
+
+## Listando os clientes em ordem alfabetica ##
+
+expect "Amigao Fernandes - SPG - amigao_fernandes@ccc.ufcg.edu.br | Ana Amari - SPG - ana_amari@ccc.ufcg.edu.br | \
+Arya Stark - Embedded - arya.stark@ccc.ufcg.edu.br | Bran Stark - Labarc - bran.stark@ccc.ufcg.edu.br | \
+Jaime Lannister - LSD - jaime.lannister@ccc.ufcg.edu.br | Lucio Correia - SPLab - lucio_correia@ccc.ufcg.edu.br | \
+Ned Stark - SPLab - ned.stark@ccc.ufcg.edu.br | Robert Baratheon - LSI - robert.baratheon@ccc.ufcg.edu.br" exibeClientes
+
+## Removendos os clientes criados ##
+
+removeCliente cpf=${cliente6}
+removeCliente cpf=${cliente7}
+removeCliente cpf=${cliente8}
+removeCliente cpf=${cliente9}
+removeCliente cpf=${cliente10}
+
+## Listando novamente os clientes apos remocoes ##
+
+expect "Amigao Fernandes - SPG - amigao_fernandes@ccc.ufcg.edu.br | Ana Amari - SPG - ana_amari@ccc.ufcg.edu.br | \
+Lucio Correia - SPLab - lucio_correia@ccc.ufcg.edu.br" exibeClientes
+
+## Cadastrando novos fornecedores ##
+
+fornecedor5=adicionaFornecedor nome="Pedro" email="pedrao@gmail.com" telefone="83 95807-7570"
+fornecedor6=adicionaFornecedor nome="Ana Julia" email="anajulia415@gmail.com" telefone="83 99647-1921"
+fornecedor7=adicionaFornecedor nome="Maria Eduarda" email="eduardamaria2000@gmail.com" telefone="83 92095-1285"
+fornecedor8=adicionaFornecedor nome="Guilherme Lanches" email="guilhermelanches@gmail.com" telefone="83 94290-2693"
+fornecedor9=adicionaFornecedor nome="Lanchonete do Fabio" email="lanchonete_fabio@hotmail.com" telefone="83 95845-6546"
+
+## Listando os fornecedores em ordem alfabetica ##
+
+expect "Ana Julia - anajulia415@gmail.com - 83 99647-1921 | Dona Alba - varandas_bar@gmail.com - 83 99945-1294 | \
+Guilherme Lanches - guilhermelanches@gmail.com - 83 94290-2693 | Lanchonete do Fabio - lanchonete_fabio@hotmail.com - 83 95845-6546 | \
+Marcos - marcos_lanchonete@gmail.com - 83 99931-9230 | \
+Maria Eduarda - eduardamaria2000@gmail.com - 83 92095-1285 | Pedro - pedrao@gmail.com - 83 95807-7570 | \
+Seu Olavo - olavo@gmail.com - 83 99348-1092" exibeFornecedores
+
+## Cadastrando Produtos ##
+
+adicionaProduto fornecedor="Pedro" nome="Tapioca" descricao="Tapioca com queijo e frango" preco=3.00
+adicionaProduto fornecedor="Pedro" nome="Lasanha" descricao="Lasanha a bolonhesa" preco=4.00
+adicionaProduto fornecedor="Guilherme Lanches" nome="Acai" descricao="Acai de 300mL" preco=5.00
+adicionaProduto fornecedor="Guilherme Lanches" nome="Acaraje" descricao="O sabor da Bahia" preco=10.00
+adicionaProduto fornecedor="Maria Eduarda" nome="Cafe com Leite" descricao="Um copo de 150mL com cafe e leite" preco=1.00
+adicionaProduto fornecedor="Pedro" nome="Pastel de Frango com Cheddar" descricao="Um pastel com recheio de frango e cheddar" preco=2.50
+adicionaProduto fornecedor="Pedro" nome="Pastel de Frango com Catupiry" descricao="Um pastel com recheio de frango e catupiry" preco=2.50
+adicionaProduto fornecedor="Ana Julia" nome="Coca-cola" descricao="Garrafa de coca-cola de 1L" preco=5.50
+adicionaProduto fornecedor="Maria Eduarda" nome="Agua" descricao="Garrafa de agua de 500mL" preco=1.00
+
+expect "Guilherme Lanches - Acai - Acai de 300mL - R$5,00 | Guilherme Lanches - Acaraje - O sabor da Bahia - R$10,00" exibeProdutosFornecedor fornecedor="Guilherme Lanches"
+
+expectError "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo." exibeProduto nome="Cafe com Leite" descricao="Um copo de 150mL com cafe e leite" fornecedor=""
+expectError "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo." exibeProduto nome="Cafe com Leite" descricao="Um copo de 150mL com cafe e leite" fornecedor=
+expectError "Erro na exibicao de produto: nome nao pode ser vazio ou nulo." exibeProduto nome="" descricao="Um copo de 150mL com cafe e leite" fornecedor="Maria Eduarda"
+expectError "Erro na exibicao de produto: nome nao pode ser vazio ou nulo." exibeProduto nome= descricao="Um copo de 150mL com cafe e leite" fornecedor="Maria Eduarda"
+expectError "Erro na exibicao de produto: descricao nao pode ser vazia ou nula." exibeProduto nome="Cafe com Leite" descricao="" fornecedor="Maria Eduarda"
+expectError "Erro na exibicao de produto: descricao nao pode ser vazia ou nula." exibeProduto nome="Cafe com Leite" descricao= fornecedor="Maria Eduarda"
+expectError "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo." exibeProdutosFornecedor fornecedor=
+expectError "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo." exibeProdutosFornecedor fornecedor=""
+expectError "Erro na exibicao de produto: fornecedor nao existe." exibeProdutosFornecedor fornecedor="Maria"
+
+## Listando os produtos de todos os fornecedores em ordem alfabetica ##
+
+expect "Ana Julia - Coca-cola - Garrafa de coca-cola de 1L - R$5,50 | Dona Alba - Rubacao - Feijao com arroz e queijo coalho - R$17,00 | \
+Guilherme Lanches - Acai - Acai de 300mL - R$5,00 | Guilherme Lanches - Acaraje - O sabor da Bahia - R$10,00 | \
+Lanchonete do Fabio - | Marcos - Coxao de Frango - Coxao de frango com cheddar - R$2,50 | Marcos - Coxao de Pizza - Coxao de frango com presunto e queijo - R$2,50 | \
+Maria Eduarda - Agua - Garrafa de agua de 500mL - R$1,00 | Maria Eduarda - Cafe com Leite - Um copo de 150mL com cafe e leite - R$1,00 | \
+Pedro - Lasanha - Lasanha a bolonhesa - R$4,00 | Pedro - Pastel de Frango com Catupiry - Um pastel com recheio de frango e catupiry - R$2,50 | \
+Pedro - Pastel de Frango com Cheddar - Um pastel com recheio de frango e cheddar - R$2,50 | Pedro - Tapioca - Tapioca com queijo e frango - R$3,00 | \
+Seu Olavo - X-burguer - Hamburguer de carne com queijo e calabresa - R$4,50" exibeProdutos
+
+## Removendo os fornecedores criados ##
+
+removeFornecedor nome=${fornecedor5}
+removeFornecedor nome=${fornecedor6}
+removeFornecedor nome=${fornecedor7}
+removeFornecedor nome=${fornecedor8}
+removeFornecedor nome=${fornecedor9}
+
+## Listando novamente os fornecedores apos remocoes ##
+
+expect "Dona Alba - varandas_bar@gmail.com - 83 99945-1294 | Marcos - marcos_lanchonete@gmail.com - 83 99931-9230 | \
+Seu Olavo - olavo@gmail.com - 83 99348-1092" exibeFornecedores
+
+## Listando os produtos de todos os fornecedores em ordem alfabetica ##
+
+expect "Dona Alba - Rubacao - Feijao com arroz e queijo coalho - R$17,00 | Marcos - Coxao de Frango - Coxao de frango com cheddar - R$2,50 | \
+Marcos - Coxao de Pizza - Coxao de frango com presunto e queijo - R$2,50 | Seu Olavo - X-burguer - Hamburguer de carne com queijo e calabresa - R$4,50" exibeProdutos
+
