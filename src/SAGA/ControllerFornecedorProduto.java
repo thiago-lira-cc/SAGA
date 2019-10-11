@@ -36,7 +36,7 @@ public class ControllerFornecedorProduto {
 	public String retornarFornecedores() {
 		String resultado = "";
 		List<Fornecedor> fornecedores = new ArrayList<>(this.fornecedores.values());
-		Collections.sort(fornecedores, new ComparadorDeFornecedoresPorString());
+		Collections.sort(fornecedores, new Comparador());
 		for (int i = 0; i < fornecedores.size(); i++) {
 			if (i==fornecedores.size()-1) {
 				resultado += fornecedores.get(i).toString();
@@ -132,7 +132,7 @@ public class ControllerFornecedorProduto {
 		excecao.verificaStringVazia(nomeFornecedor, "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.");
 		if (fornecedores.containsKey(nomeFornecedor)) {
 			List<Produto> produtos = new ArrayList<>(this.fornecedores.get(nomeFornecedor).getProdutos());
-			Collections.sort(produtos, new ComparadorDeProdutosPorString());
+			Collections.sort(produtos, new Comparador());
 			String resultado = "";
 			for (int i = 0; i < produtos.size(); i++) {
 				if (i==produtos.size()-1) {
@@ -149,11 +149,11 @@ public class ControllerFornecedorProduto {
 	public String retronarProdutos() {
 		String resultado = "";
 		List<Fornecedor> fornecedores = new ArrayList<>(this.fornecedores.values());
-		Collections.sort(fornecedores, new ComparadorDeFornecedoresPorString());
+		Collections.sort(fornecedores, new Comparador());
 		
 		for (int i = 0; i < fornecedores.size(); i++) {
 			List<Produto> produtos = this.fornecedores.get(fornecedores.get(i).getNome()).getProdutos();
-			Collections.sort(produtos, new ComparadorDeProdutosPorString());
+			Collections.sort(produtos, new Comparador());
 			
 			if (produtos.size()==0) {
 				resultado += fornecedores.get(i).getNome() + " - | ";

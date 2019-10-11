@@ -2,7 +2,7 @@ package SAGA;
 
 import java.util.ArrayList;
 
-public class Fornecedor extends ComparadorDeFornecedoresPorString{
+public class Fornecedor implements Interface{
 
 	private Excecao excecao = new Excecao();
 	private String nome;
@@ -136,8 +136,18 @@ public class Fornecedor extends ComparadorDeFornecedoresPorString{
 		return this.produtos;
 	}
 	
-	@Override
+	/*@Override
 	public int compare(Fornecedor fornecedor1, Fornecedor fornecedor2) {
 		return fornecedor1.getNome().compareTo(fornecedor2.getNome());
+	}*/
+
+	@Override
+	public int compareTo(Interface o) {
+		return this.nome.compareTo(o.getIdentificador());
+	}
+
+	@Override
+	public String getIdentificador() {
+		return this.nome;
 	}
 }

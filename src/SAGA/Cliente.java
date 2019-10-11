@@ -1,6 +1,6 @@
 package SAGA;
 
-public class Cliente extends ComparadorDeClientesPorString {
+public class Cliente implements Interface {
 	
 	private Excecao excecao = new Excecao();
 	private String cpf;
@@ -71,8 +71,18 @@ public class Cliente extends ComparadorDeClientesPorString {
 		return nome;
 	}
 
-	@Override
+	/*@Override
 	public int compare(Cliente cliente1, Cliente cliente2) {
 		return cliente1.getNome().compareTo(cliente2.getNome());
+	}*/
+
+	@Override
+	public int compareTo(Interface o) {
+		return this.nome.compareTo(o.getIdentificador());
+	}
+
+	@Override
+	public String getIdentificador() {
+		return this.nome;
 	}
 }

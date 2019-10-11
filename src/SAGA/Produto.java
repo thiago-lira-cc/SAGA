@@ -1,6 +1,6 @@
 package SAGA;
 
-public class Produto extends ComparadorDeProdutosPorString{
+public class Produto implements Interface{
 
 	private String nome;
 	private String descricao;
@@ -61,9 +61,19 @@ public class Produto extends ComparadorDeProdutosPorString{
 		this.preco = novoPreco;
 	}
 	
-	@Override
+	/*@Override
 	public int compare(Produto produto1, Produto produto2) {
 		return produto1.getNomeEDescricao().compareTo(produto2.getNomeEDescricao());
+	}*/
+
+	@Override
+	public int compareTo(Interface o) {
+		return this.getIdentificador().compareTo(o.getIdentificador());
+	}
+
+	@Override
+	public String getIdentificador() {
+		return this.nome+ " - "+ this.descricao;
 	}
 	
 }
