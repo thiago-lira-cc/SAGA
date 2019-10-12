@@ -3,11 +3,15 @@ package SAGA;
 public class Facade {
 
 	private ControllerCliente controleClientes;
-	private ControllerFornecedorProduto controleFornecedoresProdutos;
-	
+	private ControllerFornecedor controleFornecedores;
+	private ControllerProduto controleProdutos;
+	private ControllerConta controlContas;
+
 	public Facade() {
-		this.controleClientes = new ControllerCliente();
-		this.controleFornecedoresProdutos = new ControllerFornecedorProduto();
+		this.controleClientes = new ControllerCliente(controleFornecedores);
+		this.controleFornecedores = new ControllerFornecedor();
+		this.controleProdutos = new ControllerProduto(controleFornecedores);
+		this.controlContas = new ControllerConta(controleClientes, controleFornecedores);
 	}
 
 	public String adicionaCliente(String cpf, String nome, String email, String localizacao) {
@@ -31,47 +35,51 @@ public class Facade {
 	}
 	
 	public String adicionaFornecedor(String nome, String email, String telefone) {
-		return controleFornecedoresProdutos.cadastrarFornecedor(nome, email, telefone);
+		return controleFornecedores.cadastrarFornecedor(nome, email, telefone);
 	}
 	
 	public String exibeFornecedor(String nome) {
-		return controleFornecedoresProdutos.retornarFornecedor(nome);
+		return controleFornecedores.retornarFornecedor(nome);
 	}
 	
 	public String exibeFornecedores() {
-		return controleFornecedoresProdutos.retornarFornecedores();
+		return controleFornecedores.retornarFornecedores();
 	}
 	
 	public boolean editaFornecedor(String nome, String atributo, String novoValor) {
-		return controleFornecedoresProdutos.editarFornecedor(nome, atributo, novoValor);
+		return controleFornecedores.editarFornecedor(nome, atributo, novoValor);
 	}
 	
 	public boolean removeFornecedor(String nome) {
-		return controleFornecedoresProdutos.removerFornecedor(nome);
+		return controleFornecedores.removerFornecedor(nome);
 	}
 	
 	public boolean adicionaProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto, double precoProduto) {
-		return controleFornecedoresProdutos.cadastrarProduto(nomeFornecedor, nomeProduto, descricaoProduto, precoProduto);
+		return controleProdutos.cadastrarProduto(nomeFornecedor, nomeProduto, descricaoProduto, precoProduto);
 	}
 	
 	public String exibeProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
-		return controleFornecedoresProdutos.retornarProduto(nomeProduto, descricaoProduto, nomeFornecedor);
+		return controleProdutos.retornarProduto(nomeProduto, descricaoProduto, nomeFornecedor);
 	}
 	
 	public String exibeProdutosFornecedor(String nomeFornecedor) {
-		return controleFornecedoresProdutos.retornarProdutosFornecedor(nomeFornecedor);
+		return controleProdutos.retornarProdutosFornecedor(nomeFornecedor);
 	}
 	
 	public String exibeProdutos() {
-		return controleFornecedoresProdutos.retronarProdutos();
+		return controleProdutos.retronarProdutos();
 	}
 	
 	public boolean editaProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor,double novoPreco) {
-		return controleFornecedoresProdutos.editarProduto(nomeProduto, descricaoProduto, nomeFornecedor, novoPreco);
+		return controleProdutos.editarProduto(nomeProduto, descricaoProduto, nomeFornecedor, novoPreco);
 	}
 	
 	public boolean removeProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
-		return controleFornecedoresProdutos.removerProduto(nomeProduto, descricaoProduto, nomeFornecedor);
+		return controleProdutos.removerProduto(nomeProduto, descricaoProduto, nomeFornecedor);
+	}
+	
+	public boolean adicionaCompra(String cpf, String fornecedor, String data, String nome_prod, String desc_prod) {
+		return controlContas.adicionaCompra(cpf, fornecedor, data, nome_prod, desc_prod);
 	}
 
 }

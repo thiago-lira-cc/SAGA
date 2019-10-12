@@ -1,5 +1,8 @@
 package SAGA;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Cliente implements Interface {
 	
 	private Excecao excecao = new Excecao();
@@ -7,6 +10,7 @@ public class Cliente implements Interface {
 	private String nome;
 	private String email;
 	private String localizacao;
+	private Map<Fornecedor, Conta> contas;
 	
 	public Cliente(String cpf, String nome, String email, String localizacao) {
 		excecao.verificaStringNula(cpf, "Erro no cadastro do cliente: cpf nao pode ser vazio ou nulo.");
@@ -17,13 +21,13 @@ public class Cliente implements Interface {
 		excecao.verificaStringNula(nome, "Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
 		excecao.verificaStringNula(email, "Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
 		excecao.verificaStringNula(localizacao, "Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
-		if(cpf.length()!=11) {
-			throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido.");
-		}
+		excecao.verificaCpf(cpf, "Erro no cadastro do cliente: cpf invalido.");
+		
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;
 		this.localizacao = localizacao;
+		this.contas = new HashMap<Fornecedor, Conta>();
 	}
 
 	@Override
@@ -71,11 +75,6 @@ public class Cliente implements Interface {
 		return nome;
 	}
 
-	/*@Override
-	public int compare(Cliente cliente1, Cliente cliente2) {
-		return cliente1.getNome().compareTo(cliente2.getNome());
-	}*/
-
 	@Override
 	public int compareTo(Interface o) {
 		return this.nome.compareTo(o.getIdentificador());
@@ -84,5 +83,11 @@ public class Cliente implements Interface {
 	@Override
 	public String getIdentificador() {
 		return this.nome;
+	}
+
+	public boolean adicionaConta(Fornecedor fornecedor, String data, String nome_prod, String desc_prod) {
+		Conta conta = new Conta(fornecedor, data, nome_prod, desc_prod);
+		this.contas.put(fornecedor, conta);
+		return true;
 	}
 }

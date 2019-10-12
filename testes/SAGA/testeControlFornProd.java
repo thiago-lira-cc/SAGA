@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 class testeControlFornProd {
 
-private ControllerFornecedorProduto controlFornProd;
+private ControllerFornecedor controlFornProd;
 	
 	@BeforeEach
 	public void criaFachada() {
-		controlFornProd = new ControllerFornecedorProduto();
+		controlFornProd = new ControllerFornecedor();
 		controlFornProd.cadastrarFornecedor("Inês Brasil", "inesxuxu@mail.com", "8954-3275");
 		controlFornProd.cadastrarProduto("Inês Brasil", "Suco", "Suco de laranja", 1.50);
 		

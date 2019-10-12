@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 /*
  * Classe responsável pelas operações com Cliente
  * Adiciona cliente
@@ -18,13 +19,13 @@ public class ControllerCliente {
 	 * Mapa de clientes identificados pelo cpf - chave-, que guarda objetos Cliente
 	 */
 	private HashMap<String, Cliente> clientes;
-	private Excecao excessao;
+	private Excecao excecao;
 	/*
 	 * Construtor que inicia o mapa de clientes
 	 */
-	public ControllerCliente() {
+	public ControllerCliente(ControllerFornecedor controlFornProd) {
 		this.clientes = new HashMap<>();
-		this.excessao  = new Excecao();
+		this.excecao  = new Excecao();
 	}
 
 	/*
@@ -60,8 +61,8 @@ public class ControllerCliente {
 	 * @return String no format "Nome - Email - Localização"
 	 */
 	public String exibeCliente(String cpf) {
-		excessao.verificaStringNula(cpf, "Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.");
-		excessao.verificaStringVazia(cpf, "Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.");
+		excecao.verificaStringNula(cpf, "Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.");
+		excecao.verificaStringVazia(cpf, "Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.");
 		if(cpf.length()!=11) {
 			throw new IllegalArgumentException("cpf inválido.");
 		}
@@ -106,13 +107,13 @@ public class ControllerCliente {
 	 */
 	public boolean editaCliente(String cpf, String atributo, String novoValor) {
 		boolean resultado = false;
-		excessao.verificaStringNula(cpf, "Erro na edicao do cliente: cpf nao pode ser vazio ou nulo.");
-		excessao.verificaStringVazia(cpf, "Erro na edicao do cliente: cpf nao pode ser vazio ou nulo.");
+		excecao.verificaStringNula(cpf, "Erro na edicao do cliente: cpf nao pode ser vazio ou nulo.");
+		excecao.verificaStringVazia(cpf, "Erro na edicao do cliente: cpf nao pode ser vazio ou nulo.");
 		if (clientes.containsKey(cpf)) {
-			excessao.verificaStringNula(novoValor, "Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.");
-			excessao.verificaStringVazia(novoValor, "Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.");
-			excessao.verificaStringNula(atributo, "Erro na edicao do cliente: atributo nao pode ser vazio ou nulo.");
-			excessao.verificaStringVazia(atributo, "Erro na edicao do cliente: atributo nao pode ser vazio ou nulo.");
+			excecao.verificaStringNula(novoValor, "Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.");
+			excecao.verificaStringVazia(novoValor, "Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.");
+			excecao.verificaStringNula(atributo, "Erro na edicao do cliente: atributo nao pode ser vazio ou nulo.");
+			excecao.verificaStringVazia(atributo, "Erro na edicao do cliente: atributo nao pode ser vazio ou nulo.");
 			if (atributo.equals("nome")) {
 				clientes.get(cpf).setNome(novoValor);
 			}else
@@ -144,8 +145,8 @@ public class ControllerCliente {
 	 */
 	public boolean remover(String cpf) {
 		boolean resultado = false;
-		excessao.verificaStringNula(cpf, "Erro na remocao do cliente: cpf nao pode ser vazio ou nulo");
-		excessao.verificaStringVazia(cpf, "Erro na remocao do cliente: cpf nao pode ser vazio ou nulo");
+		excecao.verificaStringNula(cpf, "Erro na remocao do cliente: cpf nao pode ser vazio ou nulo");
+		excecao.verificaStringVazia(cpf, "Erro na remocao do cliente: cpf nao pode ser vazio ou nulo");
 		if(clientes.containsKey(cpf)) {
 			clientes.remove(cpf);
 			resultado = true;
@@ -153,6 +154,10 @@ public class ControllerCliente {
 			throw new IllegalArgumentException("Erro na remocao do cliente: cliente nao existe.");
 		}	
 		return resultado;
+	}
+
+	public Map<String, Cliente> getClientes() {
+		return this.clientes;
 	}
 
 }
