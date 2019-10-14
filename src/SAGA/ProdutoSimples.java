@@ -1,20 +1,30 @@
 package SAGA;
 
-public class Produto implements Interface{
+public class ProdutoSimples implements InterfaceProdutos{
 
 	private String nome;
 	private String descricao;
 	private double preco;
+	private String tipo;
 	
-	public Produto(String nome, String descricao, double preco) {
+	public ProdutoSimples(String nome, String descricao, double preco) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
+		this.tipo = "Simples";
 	}
 
-	public Produto(String nomeProduto, String descricaoProduto) {
+	public ProdutoSimples(String nomeProduto, String descricaoProduto) {
 		this.nome = nomeProduto;
 		this.descricao = descricaoProduto;
+	}
+
+	public String getNomeEDescricao() {
+		return nome+" - "+descricao;
+	}
+	
+	public void setPreco(double novoPreco) {
+		this.preco = novoPreco;
 	}
 	
 	@Override
@@ -39,7 +49,7 @@ public class Produto implements Interface{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Produto other = (Produto) obj;
+		ProdutoSimples other = (ProdutoSimples) obj;
 		if (descricao == null) {
 			if (other.descricao != null)
 				return false;
@@ -53,23 +63,23 @@ public class Produto implements Interface{
 		return true;
 	}
 
-	public String getNomeEDescricao() {
-		return nome+" - "+descricao;
-	}
-	
-	public void setPreco(double novoPreco) {
-		this.preco = novoPreco;
-	}
-	
-
-	@Override
-	public int compareTo(Interface o) {
-		return this.getIdentificador().compareTo(o.getIdentificador());
-	}
-
 	@Override
 	public String getIdentificador() {
 		return this.nome+ " - "+ this.descricao;
+	}
+
+	@Override
+	public int compareTo(InterfaceProdutos o) {
+		return this.getIdentificador().compareTo(o.getIdentificador());
+	}
+
+	public double getPreco() {
+		return preco;
+	}
+
+	@Override
+	public String getTipo() {
+		return this.tipo;
 	}
 	
 }

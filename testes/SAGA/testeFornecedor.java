@@ -59,7 +59,7 @@ class testeFornecedor {
 	
 	@Test
 	public void testGetProduto() {
-		Produto produto = new Produto("Farinha", "Farinha de trigo");
+		ProdutoSimples produto = new ProdutoSimples("Farinha", "Farinha de trigo");
 		assertEquals("Farinha - Farinha de trigo - 6.45", fornecedor.getProduto(produto));
 	}
 	
@@ -71,7 +71,7 @@ class testeFornecedor {
 	
 	@Test
 	public void testEditarProduto() {
-		Produto produto = new Produto("Farinha", "Farinha de trigo");
+		ProdutoSimples produto = new ProdutoSimples("Farinha", "Farinha de trigo");
 		assertEquals("Farinha - Farinha de trigo - 6.45", fornecedor.getProduto(produto));
 		//assertEquals(true, fornecedor.editarProduto(produto, "5.00"));
 		assertEquals("Farinha - Farinha de trigo - 5.00", fornecedor.getProduto(produto));
@@ -79,7 +79,7 @@ class testeFornecedor {
 	
 	@Test
 	public void testRemoverProduto() {
-		Produto produto = new Produto("Farinha", "Farinha de trigo");
+		ProdutoSimples produto = new ProdutoSimples("Farinha", "Farinha de trigo");
 		assertEquals("Farinha - Farinha de trigo - 6.45", fornecedor.getProduto(produto));
 		assertEquals(true, fornecedor.removerProduto(produto));
 		assertEquals("", fornecedor.getProduto(produto));

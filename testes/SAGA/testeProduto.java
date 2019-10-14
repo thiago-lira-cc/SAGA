@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Test;
 
 class testeProduto {
 
-	private Produto produto;
-	private Produto produto2;
-	private Produto produto3;
+	private ProdutoSimples produto;
+	private ProdutoSimples produto2;
+	private ProdutoSimples produto3;
 	
 	@BeforeEach
 	public void criaProduto() {
 		//produto = new Produto("Suco", "Suco de laranja", "2.50");
 		//produto2 = new Produto("Doce", "Doce de banana", "4.00");
-		produto3 = new Produto("Suco", "Suco de laranja");
+		produto3 = new ProdutoSimples("Suco", "Suco de laranja");
 	}
 	
 	@Test

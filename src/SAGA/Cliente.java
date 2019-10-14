@@ -1,16 +1,12 @@
 package SAGA;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class Cliente implements Interface {
+public class Cliente implements InterfaceUsuarios {
 	
 	private Excecao excecao = new Excecao();
 	private String cpf;
 	private String nome;
 	private String email;
 	private String localizacao;
-	private Map<Fornecedor, Conta> contas;
 	
 	public Cliente(String cpf, String nome, String email, String localizacao) {
 		excecao.verificaStringNula(cpf, "Erro no cadastro do cliente: cpf nao pode ser vazio ou nulo.");
@@ -27,7 +23,21 @@ public class Cliente implements Interface {
 		this.nome = nome;
 		this.email = email;
 		this.localizacao = localizacao;
-		this.contas = new HashMap<Fornecedor, Conta>();
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setLocalizacao(String localizacao) {
+		this.localizacao = localizacao;
+	}
+	public String getNome() {
+		return nome;
 	}
 
 	@Override
@@ -59,24 +69,9 @@ public class Cliente implements Interface {
 			return false;
 		return true;
 	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setLocalizacao(String localizacao) {
-		this.localizacao = localizacao;
-	}
-	public String getNome() {
-		return nome;
-	}
-
+	
 	@Override
-	public int compareTo(Interface o) {
+	public int compareTo(InterfaceUsuarios o) {
 		return this.nome.compareTo(o.getIdentificador());
 	}
 
@@ -85,9 +80,4 @@ public class Cliente implements Interface {
 		return this.nome;
 	}
 
-	public boolean adicionaConta(Fornecedor fornecedor, String data, String nome_prod, String desc_prod) {
-		Conta conta = new Conta(fornecedor, data, nome_prod, desc_prod);
-		this.contas.put(fornecedor, conta);
-		return true;
-	}
 }

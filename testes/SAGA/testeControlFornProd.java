@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 class testeControlFornProd {
 
 private ControllerFornecedor controlFornProd;
-	
+	/*
 	@BeforeEach
 	public void criaFachada() {
 		controlFornProd = new ControllerFornecedor();
@@ -73,7 +73,7 @@ private ControllerFornecedor controlFornProd;
 		controlFornProd.cadastrarProduto("Jurubinha", "jujuba", "jujubas mistas", 1.00);
 		assertEquals("Inês Brasil - Suco - Suco de laranja - 1.50 | Jurubinha - jujuba - jujubas mistas - 1,00 | ", controlFornProd.retronarProdutos());
 	}*/
-	
+	/*
 	@Test
 	public void testEditarProduto() {
 		controlFornProd.cadastrarFornecedor("Birigim", "birgim@mail.com", "9955-2314");
@@ -81,7 +81,7 @@ private ControllerFornecedor controlFornProd;
 		assertEquals("Birigim - Suco - Suco de laranja - R$2.00", controlFornProd.retornarProduto("Birigim", "Suco", "Suco de laranja"));
 		//assertEquals(true, controlFornProd.editarProduto("Inês Brasil", "Suco", "Suco de laranja", 2.00));
 		//assertEquals("Inês Brasil - Suco - Suco de laranja - R$2.00", controlFornProd.retornarProduto("Inês Brasil", "Suco", "Suco de laranja"));
-	}
+	}*/
 	
 	/*@Test
 	public void testRemoveProduto() {

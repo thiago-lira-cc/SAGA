@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public class ControllerFornecedor {
 	
 	private Map<String, Fornecedor> fornecedores;
@@ -36,7 +35,7 @@ public class ControllerFornecedor {
 	public String retornarFornecedores() {
 		String resultado = "";
 		List<Fornecedor> fornecedores = new ArrayList<>(this.fornecedores.values());
-		Collections.sort(fornecedores, new Comparador());
+		Collections.sort(fornecedores, new ComparadorDeUsuarios());
 		for (int i = 0; i < fornecedores.size(); i++) {
 			if (i==fornecedores.size()-1) {
 				resultado += fornecedores.get(i).toString();
@@ -89,5 +88,15 @@ public class ControllerFornecedor {
 
 	public Map<String, Fornecedor> getFornecedores() {
 		return this.fornecedores;
+	}
+
+	public List<String> getChaves() {
+		List<String> lista = new ArrayList<String>();
+		List<Fornecedor> fornecedores = new ArrayList<>(this.fornecedores.values());
+		Collections.sort(fornecedores, new ComparadorDeUsuarios());
+		for (Fornecedor fornecedor : fornecedores) {
+			lista.add(fornecedor.getNome());
+		}
+		return lista;
 	}
 }

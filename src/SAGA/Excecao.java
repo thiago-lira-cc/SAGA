@@ -1,5 +1,7 @@
 package SAGA;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 //import java.time.LocalDate;
 //import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -33,11 +35,18 @@ public class Excecao {
 	
 	public void verificaData(String data) {
 	      try {
-	         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	         //LocalDate d = LocalDate.parse(data, formatter);    
+	         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	         LocalDate d = LocalDate.parse(data, formatter);    
 	      } catch (DateTimeParseException e) {
 	    	  throw new IllegalArgumentException("Erro ao cadastrar compra: data invalida.");
 	      }   
 	   }
+
+	public void verificaFator(double fator, String msg) {
+		if (fator<0|fator>=1) {
+			throw new IllegalArgumentException(msg);
+		}
+		
+	}
 	
 }

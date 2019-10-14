@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class testeControlCliente {
-	
+	/*
 	private ControllerCliente controlCli;
 	
 	@BeforeEach
@@ -44,5 +44,5 @@ class testeControlCliente {
 		assertEquals(true, controlCli.remover("123"));
 		assertEquals(false, controlCli.remover("753"));
 	}
-
+*/
 }

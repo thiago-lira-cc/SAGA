@@ -81,5 +81,21 @@ public class Facade {
 	public boolean adicionaCompra(String cpf, String fornecedor, String data, String nome_prod, String desc_prod) {
 		return controlContas.adicionaCompra(cpf, fornecedor, data, nome_prod, desc_prod);
 	}
+	
+	public String getDebito(String cpf, String fornecedor) {
+		return controlContas.getDebito(cpf, fornecedor);
+	}
+	
+	public String exibeContas(String cpf, String fornecedor) {
+		return controlContas.exibeConta(cpf, fornecedor);
+	}
+	
+	public String exibeContasClientes(String cpf) {
+		return controlContas.exibeContasClientes(cpf);
+	}
+	
+	public boolean adicionaCombo(String nomeFornecedor, String nomeCombo, String descricaoCombo, double fator, String produtos) {
+		return controleProdutos.adicionaCombo(nomeFornecedor, nomeCombo, descricaoCombo, fator, produtos);
+	}
 
 }
