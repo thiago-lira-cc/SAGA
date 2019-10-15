@@ -1,18 +1,47 @@
 package SAGA;
 
+import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-public class Fornecedor implements InterfaceUsuarios{
+/**
+ * Representação de um fornecedor no sistema. Cada fornecedor tem nome, email e telefone, além de coleções de produtos, contas e combos.
+ * @author Thiago Lira.
+ *
+ */
+public class Fornecedor implements Comparable<Fornecedor>{
 
 	private Excecao excecao = new Excecao();
+	/**
+	 * O nome do fornecedor.
+	 */
 	private String nome;
+	/**
+	 * O email do fornecedor.
+	 */
 	private String email;
+	/**
+	 * O telefone do fornecedor.
+	 */
 	private String telefone;
+	/**
+	 * O mapa das contas.
+	 */
 	private Map<Cliente, Conta> contas;
-	private ArrayList<InterfaceProdutos> allProdutos;
+	/**
+	 * A arrayList dos seus produtos.
+	 */
+	private Map<ProdutoSimplesId, ProdutoSimples> produtosSimples;
 	
+	/**
+	 * Constrói um fornecedor a partir de seu nome, seu telefone e seu email.
+	 * Lança as mensagens de exceção do sistema, mostrando que nenhum dos parâmetros recebidos pode ser vazio ou nulo.
+	 * 
+	 * @param nome o nome do fornecedor.
+	 * @param email o email do fornecedor.
+	 * @param telefone o telefone do fornecedor.
+	 */
 	public Fornecedor(String nome, String email, String telefone) {
 		excecao.verificaStringNula(nome, "Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(nome, "Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.");
@@ -24,50 +53,79 @@ public class Fornecedor implements InterfaceUsuarios{
 		this.email = email;
 		this.telefone = telefone;
 		this.contas = new HashMap<Cliente, Conta>();
-		this.allProdutos = new ArrayList<InterfaceProdutos>();
+		this.produtosSimples = new HashMap<ProdutoSimplesId, ProdutoSimples>();
 	}
-
-	public boolean cadastraProduto(String nomeProduto, String descricaoProduto, double precoProduto) {
-		boolean resultado = false;
-		ProdutoSimples produto = new ProdutoSimples(nomeProduto, descricaoProduto, precoProduto);
-		if (!allProdutos.contains(produto)) {
-			allProdutos.add(produto);
-			resultado = true;
+	/**
+	 * Cadastra um produto no sistema.
+	 * 
+	 * @param nomeProduto o nome do produto a ser cadastrado.
+	 * @param descricaoProduto a descrição do produto.
+	 * @param precoProduto o preço do produto.
+	 * @return retorna se o cadastro ocorreu com sucesso.
+	 */
+	public boolean cadastraProduto(String nomeProduto, String descricaoProduto, double preco) {
+		ProdutoSimples produto = new ProdutoSimples(nomeProduto, descricaoProduto, preco);
+		ProdutoSimplesId id = new ProdutoSimplesId(nomeProduto, descricaoProduto);
+		
+		if (this.produtosSimples.containsKey(id)) {
+			this.produtosSimples.put(id, produto);
+			return true;
 		}
-		return resultado;
+		throw new IllegalArgumentException("Produto já existe");
 	}
-
-	public boolean contemProduto(InterfaceProdutos produto) {
-		boolean resultado = false;
-		if (allProdutos.contains(produto)) {
-			resultado = true;
+	/**
+	 * Verifica se o produto já existe.
+	 * 
+	 * @param produto o produto a ser verificado
+	 * @return retorna se o produto existe ou não.
+	 */
+	public boolean contemProduto(String nome, String descricao) {
+		ProdutoSimplesId id = new ProdutoSimplesId(nome, descricao);
+		if (this.produtosSimples.containsKey(id)) {
+			return true;
 		}
-		return resultado;
+		return false;
 	}
 
-	public String getProduto(ProdutoSimples produtoB) {
+	public String exibeProduto(String nome, String descricao) {
 		String resultado = "";
-		for (InterfaceProdutos produtoA : allProdutos) {
-			if (produtoA.equals(produtoB)) {
-				resultado = produtoA.toString();
-			}
+		ProdutoSimplesId id = new ProdutoSimplesId(nome, descricao);
+		if (produtosSimples.containsKey(id)) {
+			resultado += produtosSimples.get(id).toString();
 		}
 		return resultado;
 	}
-
+	/**
+	 * Retorna a lista dos produtos cadastrados no sistema.
+	 * @return retorna as representações String dos produtos, em lista.
+	 */
 	public String retornaProdutosFornecedor() {
 		String resultado = "";
-		for (int i = 0; i < allProdutos.size(); i++) {
-			if (i==allProdutos.size()-1) {
-				resultado += allProdutos.get(i).toString();
-			}else {
-				resultado += allProdutos.get(i).toString() + " | ";
+		
+		List<ProdutoSimples> listaProdutos = new ArrayList<>();
+		listaProdutos.addAll(this.produtosSimples.values());
+		
+		if (listaProdutos.size() != 0) {
+			Collections.sort(listaProdutos);
+			
+			for (ProdutoSimples produtoSimples : listaProdutos) {
+				resultado += this.nome +" - "+ produtoSimples.toString() + " | ";
 			}
+			
+			resultado = resultado.substring(0, resultado.length()-3);
+			
+			return resultado;
+		}else {
+			return this.nome +" - ";
 		}
-
-		return resultado;
 	}
-
+	/**
+	 * Edita o preço de um produto.
+	 * 
+	 * @param produto o produto a ser editado.
+	 * @param novoPreco o novo preço do produto.
+	 * @return retorna se a edição ocorreu com sucesso.
+	 */
 	public boolean editarProduto(ProdutoSimples produto, double novoPreco) {
 		boolean resultado = false;
 		for (int i = 0; i < this.allProdutos.size(); i++) {
@@ -78,8 +136,12 @@ public class Fornecedor implements InterfaceUsuarios{
 		}
 		return resultado;
 	}
-
-	public boolean removerProduto(ProdutoSimples produtoB) {
+	/**
+	 * Remove um produto do sistema.
+	 * @param produtoB o produto a ser removido.
+	 * @return retorna se a remoção ocorreu com sucesso.
+	 */
+	public boolean removerProduto(InterfaceProdutos produtoB) {
 		boolean resultado = false;
 		for (InterfaceProdutos produtoA : allProdutos) {
 			if (produtoA.equals(produtoB)) {
@@ -90,16 +152,6 @@ public class Fornecedor implements InterfaceUsuarios{
 		return resultado;
 	}
 	
-	public boolean cadastraCombo(String nomeCombo, String descricaoCombo, double fator, InterfaceProdutos produto1, InterfaceProdutos produto2) {
-		ProdutoCombo combo = new ProdutoCombo(nomeCombo, descricaoCombo, fator, produto1, produto2);
-		if (!allProdutos.contains(combo)) {
-			allProdutos.add(combo);
-			return true;
-		}
-		
-		throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -111,8 +163,12 @@ public class Fornecedor implements InterfaceUsuarios{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	public double getPrecoProd(ProdutoSimples produto) {
+	/**
+	 * Retorna preço de um produto
+	 * @param produto
+	 * @return
+	 */
+	public double getPrecoProd(InterfaceProdutos produto) {
 		for (int i = 0; i < allProdutos.size(); i++) {
 			if (this.allProdutos.get(i).equals(produto)) {
 				return allProdutos.get(i).getPreco();
@@ -123,16 +179,6 @@ public class Fornecedor implements InterfaceUsuarios{
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-
-	@Override
-	public int compareTo(InterfaceUsuarios o) {
-		return this.nome.compareTo(o.getIdentificador());
-	}
-
-	@Override
-	public String getIdentificador() {
-		return this.nome;
 	}
 	
 	@Override
@@ -159,16 +205,27 @@ public class Fornecedor implements InterfaceUsuarios{
 			return false;
 		return true;
 	}
-
+	/**
+	 * Representação String de um fornecedor no sistema.
+	 * @return retorna a representação do fornecedor no formato " nome - email - telefone".
+	 */
 	@Override
 	public String toString() {
 		return nome + " - " + email + " - " + telefone;
 	}
 	
-	public ArrayList<InterfaceProdutos> getProdutos(){
-		return this.allProdutos;
+	public List<ProdutoSimples> getProdutos(){
+		return this.produtosSimples.values();
 	}
-
+	/**
+	 * Adiciona uma compra no sistema.
+	 * @param cliente o cliente que efetuou a compra.
+	 * @param data a data da commpra.
+	 * @param nome_prod o nome do produto comprado.
+	 * @param desc_prod a descrição do produto.
+	 * @param preco o preço do produto
+	 * @return retorna se a compra ocorreu com sucesso.
+	 */
 	public boolean adicionaCompra(Cliente cliente, String data, String nome_prod, String desc_prod, double preco) {
 		if (this.contas.containsKey(cliente)) {
 			this.contas.get(cliente).adicionaCompra(data, nome_prod, desc_prod, preco);
@@ -186,19 +243,33 @@ public class Fornecedor implements InterfaceUsuarios{
 		}
 		throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao tem debito com fornecedor.");
 	}
-
+	/**
+	 * Exibe as contas do Cliente.
+	 * @param cliente o cliente.
+	 * @return retorna a representação String da conta desejada.
+	 */
 	public String exibeContas(Cliente cliente) {
 		if (contas.containsKey(cliente)) {
 			return this.contas.get(cliente).exibeContas();
 		}
 		throw new IllegalArgumentException("Erro ao exibir conta do cliente: cliente nao tem nenhuma conta com o fornecedor.");
 	}
-
+	/**
+	 * Verifica se um produto está cadastrado
+	 * @param cliente
+	 * @return boolean true ou false
+	 */
 	public boolean contemConta(Cliente cliente) {
 		if (contas.containsKey(cliente)) {
 			return true;
 		}
 		return false;
 	}
+	@Override
+	public int compareTo(Fornecedor o) {
+		return this.nome.compareTo(o.getNome());
+	}
+
+	
 
 }

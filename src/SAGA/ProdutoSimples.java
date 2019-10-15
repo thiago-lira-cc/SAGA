@@ -1,19 +1,31 @@
 package SAGA;
-
-public class ProdutoSimples implements InterfaceProdutos{
+/**
+ * Representação de um produto no sistema. Cada produto possui nome, descrição, preço e tipo
+ * @author Thiago Lira.
+ *
+ */
+public class ProdutoSimples implements Comparable<ProdutoSimples>{
 
 	private String nome;
 	private String descricao;
 	private double preco;
-	private String tipo;
-	
+
+	/**
+	 * Contrói um produto com os parametros passados
+	 * @param nome
+	 * @param descricao
+	 * @param preco
+	 */
 	public ProdutoSimples(String nome, String descricao, double preco) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
-		this.tipo = "Simples";
 	}
-
+	/**
+	 * Constrói um produto usando apenas nome e descrição
+	 * @param nomeProduto
+	 * @param descricaoProduto
+	 */
 	public ProdutoSimples(String nomeProduto, String descricaoProduto) {
 		this.nome = nomeProduto;
 		this.descricao = descricaoProduto;
@@ -26,7 +38,9 @@ public class ProdutoSimples implements InterfaceProdutos{
 	public void setPreco(double novoPreco) {
 		this.preco = novoPreco;
 	}
-	
+	/**
+	 * Representação textual de um produto
+	 */
 	@Override
 	public String toString() {
 		return nome + " - " + descricao + " - R$" +String.format("%.2f", preco);
@@ -63,14 +77,8 @@ public class ProdutoSimples implements InterfaceProdutos{
 		return true;
 	}
 
-	@Override
 	public String getIdentificador() {
 		return this.nome+ " - "+ this.descricao;
-	}
-
-	@Override
-	public int compareTo(InterfaceProdutos o) {
-		return this.getIdentificador().compareTo(o.getIdentificador());
 	}
 
 	public double getPreco() {
@@ -78,8 +86,8 @@ public class ProdutoSimples implements InterfaceProdutos{
 	}
 
 	@Override
-	public String getTipo() {
-		return this.tipo;
+	public int compareTo(ProdutoSimples outroProduto) {
+		return this.getIdentificador().compareTo(outroProduto.getIdentificador());
 	}
 	
 }

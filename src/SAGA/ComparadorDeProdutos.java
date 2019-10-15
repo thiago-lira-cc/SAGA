@@ -1,7 +1,11 @@
 package SAGA;
 
 import java.util.Comparator;
-
+/**
+ * Classe responsável por comparar os produtos no sitema.
+ * @author Thiago Lira.
+ *
+ */
 public class ComparadorDeProdutos implements Comparator<InterfaceProdutos>{
 
 	@Override

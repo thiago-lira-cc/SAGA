@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-/*
+/**
  * Classe responsável pelas operações com Cliente
  * Adiciona cliente
  * Retorna cliente
@@ -15,12 +15,12 @@ import java.util.Map;
  */
 public class ControllerCliente {
 
-	/*
+	/**
 	 * Mapa de clientes identificados pelo cpf - chave-, que guarda objetos Cliente
 	 */
 	private HashMap<String, Cliente> clientes;
 	private Excecao excecao;
-	/*
+	/**
 	 * Construtor que inicia o mapa de clientes
 	 */
 	public ControllerCliente(ControllerFornecedor controlFornProd) {
@@ -28,7 +28,7 @@ public class ControllerCliente {
 		this.excecao  = new Excecao();
 	}
 
-	/*
+	/**
 	 * Método de cadastro de clientes
 	 * Recebe cpf, nome, email e localização do cliente
 	 * Se o cadastro foi realizado retorna o cpf do cliente
@@ -51,7 +51,7 @@ public class ControllerCliente {
 		}
 		throw new IllegalArgumentException("Erro no cadastro do cliente: cliente ja existe.");
 	}
-	/*
+	/**
 	 * Método que retorna - mostra - um cliente pelo cpf
 	 * 
 	 * Verifica se o cliente está cadastrado e retorna a representação de Cliente
@@ -73,7 +73,7 @@ public class ControllerCliente {
 		}
 	}
 	
-	/*
+	/**
 	 * Método que retorna todos os clientes cadastrados
 	 * 
 	 * Percorre o mapa de clientes e gera uma representação de cada Cliente
@@ -93,7 +93,7 @@ public class ControllerCliente {
 		}
 		return resultado;
 	}
-	/*
+	/**
 	 * Método que altera o nome, email e localização do Cliente pelo cpf
 	 * 
 	 * Verifica se o cliente está cadastrado e altera
@@ -134,7 +134,7 @@ public class ControllerCliente {
 		}
 		return resultado;
 	}
-	/*
+	/**
 	 * Método que remove um cliente do mapa de clientes
 	 * 
 	 * Verifica se o cliente existe e remove
@@ -155,7 +155,10 @@ public class ControllerCliente {
 		}	
 		return resultado;
 	}
-
+	/**
+	 * Método que retorna o mapa de clientes cadastrados
+	 * 
+	 */
 	public Map<String, Cliente> getClientes() {
 		return this.clientes;
 	}

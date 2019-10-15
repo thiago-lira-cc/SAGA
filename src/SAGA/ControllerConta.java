@@ -1,18 +1,38 @@
 package SAGA;
-
+/**
+ * Classe responsável pelas operações com Conta.
+ * Adiciona compra
+ * Exibe conta
+ * Exibe todas as contas
+ * @author Thiago Lira.
+ *
+ */
 public class ControllerConta {
 	private Excecao excecao;
 	private ControllerCliente controlClientes;
 	private ControllerFornecedor controlFornecedores;
 
-
+	/**
+	 * Construtor do controller.
+	 * @param controlClientesFacade
+	 * @param controlFornProdFacade
+	 */
 	public ControllerConta(ControllerCliente controlClientesFacade, ControllerFornecedor controlFornProdFacade) {
 		this.excecao = new Excecao();
 		this.controlClientes  = controlClientesFacade;
 		this.controlFornecedores = controlFornProdFacade;
 
 	}
-	
+	/**
+	 * Adiciona uma compra ao sistema.
+	 * Lança as mensagens de exceção do sistema. Os parâmetros recebidos não podem ser vazios ou nulos e, tanto o fornecedor quanto o cliente têm que existir.
+	 * @param cpf
+	 * @param fornecedor
+	 * @param data
+	 * @param nome_prod
+	 * @param desc_prod
+	 * @return
+	 */
 	public boolean adicionaCompra(String cpf, String fornecedor, String data, String nome_prod, String desc_prod) {
 		excecao.verificaStringNula(cpf, "Erro ao cadastrar compra: cpf nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(cpf, "Erro ao cadastrar compra: cpf nao pode ser vazio ou nulo.");
@@ -39,7 +59,12 @@ public class ControllerConta {
 			throw new IllegalArgumentException("Erro ao cadastrar compra: cliente nao existe.");
 		}
 	}
-
+	/**
+	 * Método que retorna o débito do cliente
+	 * 
+	 * O débito é o somatório do preço de todas as compras, realizadas, ou seja, que estão anotados naquela conta. 
+	 * 
+	 */
 	public String getDebito(String cpf, String fornecedor) {
 		excecao.verificaStringNula(cpf, "Erro ao recuperar debito: cpf nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(cpf, "Erro ao recuperar debito: cpf nao pode ser vazio ou nulo.");
@@ -54,7 +79,13 @@ public class ControllerConta {
 		}
 		throw new IllegalArgumentException("Erro ao recuperar debito: fornecedor nao existe.");
 	}
-
+	/**
+	 * Exibe uma conta do sistema.
+	 * Lança as mensagens de exceção do sistema. Os parâmetros recebidos não podem ser vazios ou nulos e, tanto o fornecedor quanto o cliente têm que existir.
+	 * @param cpf o cpf 
+	 * @param fornecedor o fornecedor.
+	 * @return Retorna a representação String da conta desejada.
+	 */
 	public String exibeConta(String cpf, String fornecedor) {
 		excecao.verificaStringNula(cpf, "Erro ao exibir conta do cliente: cpf nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(cpf, "Erro ao exibir conta do cliente: cpf nao pode ser vazio ou nulo.");
@@ -69,7 +100,11 @@ public class ControllerConta {
 		}
 		throw new IllegalArgumentException("Erro ao exibir conta do cliente: fornecedor nao existe.");
 	}
-	
+	/**
+	 * Exibe as contas de um cliente.
+	 * @param cpf o cpf do cliente
+	 * @return retorna a representação String das contas do cliente.
+	 */
 	public String exibeContasClientes(String cpf) {
 		excecao.verificaStringNula(cpf, "Erro ao exibir contas do cliente: cpf nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(cpf, "Erro ao exibir contas do cliente: cpf nao pode ser vazio ou nulo.");

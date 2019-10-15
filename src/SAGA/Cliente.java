@@ -1,13 +1,35 @@
 package SAGA;
-
+/**
+ * Representação de um cliente no sistema. Cada cliente possui cpf, nome, email e localização
+ * @author Thiago Lira.
+ *
+ */
 public class Cliente implements InterfaceUsuarios {
 	
 	private Excecao excecao = new Excecao();
+	/**
+	 * cpf do cliente
+	 */
 	private String cpf;
+	/**
+	 * nome do cliente
+	 */
 	private String nome;
+	/**
+	 * email do cliente
+	 */
 	private String email;
+	/**
+	 * localização do cliente
+	 */
 	private String localizacao;
-	
+	/**
+	 * Constrói um cliente se nenhum dos parametros forem vazzzzi ou nulo
+	 * @param cpf
+	 * @param nome
+	 * @param email
+	 * @param localizacao
+	 */
 	public Cliente(String cpf, String nome, String email, String localizacao) {
 		excecao.verificaStringNula(cpf, "Erro no cadastro do cliente: cpf nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(cpf, "Erro no cadastro do cliente: cpf nao pode ser vazio ou nulo.");
@@ -39,7 +61,9 @@ public class Cliente implements InterfaceUsuarios {
 	public String getNome() {
 		return nome;
 	}
-
+	/**
+	 * Representação textual do cliente no formato "nome - localização - email"
+	 */
 	@Override
 	public String toString() {
 		return nome + " - " + localizacao + " - " + email;

@@ -1,5 +1,10 @@
 package SAGA;
 
+/**
+ * Fachada do sistema. Dispõe de todos os seus métodos.
+ * @author Thiago Lira
+ *
+ */
 public class Facade {
 
 	private ControllerCliente controleClientes;
@@ -7,6 +12,9 @@ public class Facade {
 	private ControllerProduto controleProdutos;
 	private ControllerConta controlContas;
 
+	/**
+	 * Construtor que inicializa os controllers do sistema.
+	 */
 	public Facade() {
 		this.controleClientes = new ControllerCliente(controleFornecedores);
 		this.controleFornecedores = new ControllerFornecedor();
@@ -78,6 +86,8 @@ public class Facade {
 		return controleProdutos.removerProduto(nomeProduto, descricaoProduto, nomeFornecedor);
 	}
 	
+	
+	
 	public boolean adicionaCompra(String cpf, String fornecedor, String data, String nome_prod, String desc_prod) {
 		return controlContas.adicionaCompra(cpf, fornecedor, data, nome_prod, desc_prod);
 	}
@@ -92,10 +102,6 @@ public class Facade {
 	
 	public String exibeContasClientes(String cpf) {
 		return controlContas.exibeContasClientes(cpf);
-	}
-	
-	public boolean adicionaCombo(String nomeFornecedor, String nomeCombo, String descricaoCombo, double fator, String produtos) {
-		return controleProdutos.adicionaCombo(nomeFornecedor, nomeCombo, descricaoCombo, fator, produtos);
 	}
 
 }
