@@ -39,18 +39,20 @@ public class ControllerProduto {
 		boolean resultado = false;
 		excecao.verificaStringNula(nomeFornecedor, "Erro no cadastro de produto: fornecedor nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(nomeFornecedor, "Erro no cadastro de produto: fornecedor nao pode ser vazio ou nulo.");
-		excecao.verificaPreco(precoProduto, "Erro no cadastro de produto: preco invalido.");
+		
 		if(this.controlForn.getFornecedores().containsKey(nomeFornecedor)) {
 			excecao.verificaStringNula(nomeProduto, "Erro no cadastro de produto: nome nao pode ser vazio ou nulo.");
 			excecao.verificaStringVazia(nomeProduto, "Erro no cadastro de produto: nome nao pode ser vazio ou nulo.");
 			excecao.verificaStringNula(descricaoProduto, "Erro no cadastro de produto: descricao nao pode ser vazia ou nula.");
 			excecao.verificaStringVazia(descricaoProduto, "Erro no cadastro de produto: descricao nao pode ser vazia ou nula.");
-
+			excecao.verificaPreco(precoProduto, "Erro no cadastro de produto: preco invalido.");
+			
 			if(this.controlForn.getFornecedores().get(nomeFornecedor).contemProduto(nomeProduto, descricaoProduto)) {
 				throw new IllegalArgumentException("Erro no cadastro de produto: produto ja existe.");
+			}else {
+				resultado = this.controlForn.getFornecedores().get(nomeFornecedor).cadastraProduto(nomeProduto, descricaoProduto, precoProduto);
 			}
-
-			resultado = this.controlForn.getFornecedores().get(nomeFornecedor).cadastraProduto(nomeProduto, descricaoProduto, precoProduto);
+			
 		}else {
 			throw new IllegalArgumentException("Erro no cadastro de produto: fornecedor nao existe.");
 		}
@@ -72,11 +74,11 @@ public class ControllerProduto {
 		excecao.verificaStringVazia(descricaoProduto, "Erro na exibicao de produto: descricao nao pode ser vazia ou nula.");
 		if (this.controlForn.getFornecedores().containsKey(nomeFornecedor)) {	
 
-			if (this.controlForn.getFornecedores().get(nomeFornecedor).contemProduto(nomeProduto, descricaoProduto)) {
+			//if (this.controlForn.getFornecedores().get(nomeFornecedor).contemProduto(nomeProduto, descricaoProduto)) {
 				return this.controlForn.getFornecedores().get(nomeFornecedor).exibeProduto(nomeProduto, descricaoProduto);
-			}else {
-				throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
-			}
+			//}else {
+				//throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
+			//}
 		}
 		throw new IllegalArgumentException("Erro na exibicao de produto: fornecedor nao existe.");
 	}
@@ -102,22 +104,10 @@ public class ControllerProduto {
 		List<Fornecedor> fornecedores = new ArrayList<>(this.controlForn.getFornecedores().values());
 		Collections.sort(fornecedores);
 		
-		for (int i = 0; i < fornecedores.size(); i++) {
-			List<ProdutoSimples> produtos = this.controlForn.getFornecedores().get(fornecedores.get(i).getNome()).getProdutos();
-			Collections.sort(produtos);
-			
-			if (produtos.size()==0) {
-				resultado += fornecedores.get(i).getNome() + " - | ";
-			}else {
-				for (int j = 0; j < produtos.size(); j++) {
-					if (i==fornecedores.size()-1) {
-						resultado += fornecedores.get(i).getNome() + " - " +produtos.get(j).toString();
-					}else {
-						resultado += fornecedores.get(i).getNome() + " - " +produtos.get(j).toString() + " | ";
-					}
-				}
-			}
+		for (Fornecedor fornecedor : fornecedores) {
+			resultado += fornecedor.retornaProdutosFornecedor() + " | ";
 		}
+		resultado = resultado.substring(0, resultado.length()-3);
 		return resultado;
 	}
 	/**

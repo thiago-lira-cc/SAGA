@@ -2,6 +2,7 @@ package SAGA;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	 */
 	private Map<Cliente, Conta> contas;
 	/**
-	 * A arrayList dos seus produtos.
+	 * A mapa dos seus produtos.
 	 */
 	private Map<ProdutoSimplesId, ProdutoSimples> produtosSimples;
 	
@@ -64,14 +65,15 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	 * @return retorna se o cadastro ocorreu com sucesso.
 	 */
 	public boolean cadastraProduto(String nomeProduto, String descricaoProduto, double preco) {
-		ProdutoSimples produto = new ProdutoSimples(nomeProduto, descricaoProduto, preco);
-		ProdutoSimplesId id = new ProdutoSimplesId(nomeProduto, descricaoProduto);
-		
-		if (this.produtosSimples.containsKey(id)) {
+		if (!contemProduto(nomeProduto, descricaoProduto)) {
+			ProdutoSimples produto = new ProdutoSimples(nomeProduto, descricaoProduto, preco);
+			ProdutoSimplesId id = new ProdutoSimplesId(nomeProduto, descricaoProduto);
 			this.produtosSimples.put(id, produto);
 			return true;
+		}else {
+			throw new IllegalArgumentException("Erro no cadastro de produto: produto ja existe.");
 		}
-		throw new IllegalArgumentException("Produto já existe");
+		
 	}
 	/**
 	 * Verifica se o produto já existe.
@@ -88,12 +90,11 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	}
 
 	public String exibeProduto(String nome, String descricao) {
-		String resultado = "";
 		ProdutoSimplesId id = new ProdutoSimplesId(nome, descricao);
 		if (produtosSimples.containsKey(id)) {
-			resultado += produtosSimples.get(id).toString();
+			return produtosSimples.get(id).toString();
 		}
-		return resultado;
+		throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
 	}
 	/**
 	 * Retorna a lista dos produtos cadastrados no sistema.
@@ -116,7 +117,7 @@ public class Fornecedor implements Comparable<Fornecedor>{
 			
 			return resultado;
 		}else {
-			return this.nome +" - ";
+			return this.nome +" -";
 		}
 	}
 	/**
@@ -126,11 +127,11 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	 * @param novoPreco o novo preço do produto.
 	 * @return retorna se a edição ocorreu com sucesso.
 	 */
-	public boolean editarProduto(ProdutoSimples produto, double novoPreco) {
+	public boolean editarProduto(ProdutoSimples produtoA, double novoPreco) {
 		boolean resultado = false;
-		for (int i = 0; i < this.allProdutos.size(); i++) {
-			if (allProdutos.get(i).equals(produto)) {
-				allProdutos.get(i).setPreco(novoPreco);
+		for (ProdutoSimplesId chaveProdutoB: produtosSimples.keySet()) {
+			if (produtosSimples.get(chaveProdutoB).equals(produtoA)) {
+				this.produtosSimples.get(chaveProdutoB).setPreco(novoPreco);
 				resultado = true;
 			}
 		}
@@ -141,12 +142,12 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	 * @param produtoB o produto a ser removido.
 	 * @return retorna se a remoção ocorreu com sucesso.
 	 */
-	public boolean removerProduto(InterfaceProdutos produtoB) {
+	public boolean removerProduto(ProdutoSimples produtoB) {
 		boolean resultado = false;
-		for (InterfaceProdutos produtoA : allProdutos) {
-			if (produtoA.equals(produtoB)) {
-				allProdutos.remove(produtoA);
-				resultado = true;
+		List<ProdutoSimplesId> chaves = new ArrayList<ProdutoSimplesId>(this.produtosSimples.keySet());
+		for (int i = 0; i < chaves.size(); i++) {
+			if (produtosSimples.get(chaves.get(i)).equals(produtoB)) {
+				produtosSimples.remove(chaves.get(i));
 			}
 		}
 		return resultado;
@@ -168,10 +169,10 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	 * @param produto
 	 * @return
 	 */
-	public double getPrecoProd(InterfaceProdutos produto) {
-		for (int i = 0; i < allProdutos.size(); i++) {
-			if (this.allProdutos.get(i).equals(produto)) {
-				return allProdutos.get(i).getPreco();
+	public double getPrecoProd(ProdutoSimples produtoA) {
+		for (ProdutoSimples produtoB : produtosSimples.values()) {
+			if (produtoA.equals(produtoB)) {
+				return produtoB.getPreco();
 			}
 		}
 		throw new IllegalArgumentException("Erro ao cadastrar compra: produto nao existe.");
@@ -214,9 +215,6 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		return nome + " - " + email + " - " + telefone;
 	}
 	
-	public List<ProdutoSimples> getProdutos(){
-		return this.produtosSimples.values();
-	}
 	/**
 	 * Adiciona uma compra no sistema.
 	 * @param cliente o cliente que efetuou a compra.
@@ -268,6 +266,10 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	@Override
 	public int compareTo(Fornecedor o) {
 		return this.nome.compareTo(o.getNome());
+	}
+	public Collection<? extends ProdutoSimples> getProdutos() {
+		// TODO Auto-generated method stub
+		return this.produtosSimples.values();
 	}
 
 	

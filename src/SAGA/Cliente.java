@@ -4,7 +4,7 @@ package SAGA;
  * @author Thiago Lira.
  *
  */
-public class Cliente implements InterfaceUsuarios {
+public class Cliente implements Comparable<Cliente> {
 	
 	private Excecao excecao = new Excecao();
 	/**
@@ -93,15 +93,11 @@ public class Cliente implements InterfaceUsuarios {
 			return false;
 		return true;
 	}
-	
-	@Override
-	public int compareTo(InterfaceUsuarios o) {
-		return this.nome.compareTo(o.getIdentificador());
-	}
 
 	@Override
-	public String getIdentificador() {
-		return this.nome;
+	public int compareTo(Cliente outroCliente) {
+		// TODO Auto-generated method stub
+		return this.nome.compareTo(outroCliente.getNome());
 	}
 
 }

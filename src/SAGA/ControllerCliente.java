@@ -83,7 +83,7 @@ public class ControllerCliente {
 	public String retornarClientes() {
 		String resultado = "";
 		List<Cliente> clientes = new ArrayList<>(this.clientes.values());
-		Collections.sort(clientes, new ComparadorDeUsuarios());
+		Collections.sort(clientes);
 		for (int i = 0; i < clientes.size(); i++) {
 			if (i==clientes.size()-1) {
 				resultado += clientes.get(i).toString();
