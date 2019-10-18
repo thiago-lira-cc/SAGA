@@ -160,5 +160,23 @@ public class ControllerProduto {
 		}
 		throw new IllegalArgumentException("Erro na remocao de produto: fornecedor nao existe.");
 	}
+	public boolean adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
+		excecao.verificaStringNula(fornecedor, "Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
+		excecao.verificaStringVazia(fornecedor, "Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
+		
+		if (this.controlForn.getFornecedores().containsKey(fornecedor)) {
+			excecao.verificaStringNula(nome, "Erro no cadastro de combo: nome nao pode ser vazio ou nulo.");
+			excecao.verificaStringVazia(nome, "Erro no cadastro de combo: nome nao pode ser vazio ou nulo.");
+			excecao.verificaStringNula(descricao, "Erro no cadastro de combo: descricao nao pode ser vazia ou nula.");
+			excecao.verificaStringVazia(descricao, "Erro no cadastro de combo: descricao nao pode ser vazia ou nula.");
+			excecao.verificaFator(fator, "Erro no cadastro de combo: fator invalido.");
+			excecao.verificaStringNula(produtos, "Erro no cadastro de combo: combo deve ter produtos.");
+			excecao.verificaStringVazia(produtos, "Erro no cadastro de combo: combo deve ter produtos.");
+			
+			return this.controlForn.getFornecedores().get(fornecedor).adicionaCombo(nome, descricao, fator, produtos);
+		}
+		
+		throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao existe.");
+	}
 
 }

@@ -33,7 +33,9 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	/**
 	 * A mapa dos seus produtos.
 	 */
-	private Map<ProdutoSimplesId, ProdutoSimples> produtosSimples;
+	private Map<ProdutoId, ProdutoSimples> produtosSimples;
+	
+	private Map<ProdutoId, ProdutoCombo> produtoCombo;
 	
 	/**
 	 * Constrói um fornecedor a partir de seu nome, seu telefone e seu email.
@@ -54,7 +56,8 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		this.email = email;
 		this.telefone = telefone;
 		this.contas = new HashMap<Cliente, Conta>();
-		this.produtosSimples = new HashMap<ProdutoSimplesId, ProdutoSimples>();
+		this.produtosSimples = new HashMap<ProdutoId, ProdutoSimples>();
+		this.produtoCombo = new HashMap<ProdutoId, ProdutoCombo>();
 	}
 	/**
 	 * Cadastra um produto no sistema.
@@ -67,13 +70,37 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	public boolean cadastraProduto(String nomeProduto, String descricaoProduto, double preco) {
 		if (!contemProduto(nomeProduto, descricaoProduto)) {
 			ProdutoSimples produto = new ProdutoSimples(nomeProduto, descricaoProduto, preco);
-			ProdutoSimplesId id = new ProdutoSimplesId(nomeProduto, descricaoProduto);
+			ProdutoId id = new ProdutoId(nomeProduto, descricaoProduto);
 			this.produtosSimples.put(id, produto);
 			return true;
 		}else {
 			throw new IllegalArgumentException("Erro no cadastro de produto: produto ja existe.");
 		}
 		
+	}
+	public boolean adicionaCombo(String nome, String descricao, double fator, String produtos) {
+		if (!contemCombo(nome, descricao)) {
+			String[] produtosSep = produtos.split(", ");
+			String[] propduto1 = produtosSep[0].split(" - ");
+			ProdutoId id1 = new ProdutoId(propduto1[0], propduto1[1]);
+			
+			String[] propduto2 = produtosSep[1].split(" - ");
+			ProdutoId id2 = new ProdutoId(propduto2[0], propduto2[1]);
+			if (produtosSimples.containsKey(id1) && produtosSimples.containsKey(id2)) {
+				double precoprod1 = produtosSimples.get(id1).getPreco();
+				double precoprod2 = produtosSimples.get(id2).getPreco();
+				
+				ProdutoCombo combo = new ProdutoCombo(nome, descricao, fator, produtos, precoprod1, precoprod2);
+				ProdutoId id = new ProdutoId(nome, descricao);
+				this.produtoCombo.put(id, combo);
+				return true;
+			}
+			if (produtoCombo.containsKey(id1) || produtoCombo.containsKey(id2)) {
+				throw new IllegalArgumentException("Erro no cadastro de combo: um combo nao pode possuir combos na lista de produtos.");
+			}
+			throw new IllegalArgumentException("Erro no cadastro de combo: produto nao existe.");
+		}
+		throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
 	}
 	/**
 	 * Verifica se o produto já existe.
@@ -82,17 +109,27 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	 * @return retorna se o produto existe ou não.
 	 */
 	public boolean contemProduto(String nome, String descricao) {
-		ProdutoSimplesId id = new ProdutoSimplesId(nome, descricao);
+		ProdutoId id = new ProdutoId(nome, descricao);
 		if (this.produtosSimples.containsKey(id)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean contemCombo(String nome, String descricao) {
+		ProdutoId id = new ProdutoId(nome, descricao);
+		if (this.produtoCombo.containsKey(id)) {
 			return true;
 		}
 		return false;
 	}
 
 	public String exibeProduto(String nome, String descricao) {
-		ProdutoSimplesId id = new ProdutoSimplesId(nome, descricao);
+		ProdutoId id = new ProdutoId(nome, descricao);
 		if (produtosSimples.containsKey(id)) {
 			return produtosSimples.get(id).toString();
+		}else if (produtoCombo.containsKey(id)) {
+			return produtoCombo.get(id).toString();
 		}
 		throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
 	}
@@ -103,8 +140,15 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	public String retornaProdutosFornecedor() {
 		String resultado = "";
 		
-		List<ProdutoSimples> listaProdutos = new ArrayList<>();
-		listaProdutos.addAll(this.produtosSimples.values());
+		List<ProdutoSimples> listaProdutosSimples = new ArrayList<>();
+		listaProdutosSimples.addAll(this.produtosSimples.values());
+		List<ProdutoCombo> listaProdutosCombo = new ArrayList<>();
+		listaProdutosCombo.addAll(this.produtoCombo.values());
+		
+		List listaProdutos = new ArrayList<>();
+		listaProdutos.addAll(listaProdutosSimples);
+		listaProdutos.addAll(listaProdutosCombo);
+		
 		
 		if (listaProdutos.size() != 0) {
 			Collections.sort(listaProdutos);
@@ -129,7 +173,7 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	 */
 	public boolean editarProduto(ProdutoSimples produtoA, double novoPreco) {
 		boolean resultado = false;
-		for (ProdutoSimplesId chaveProdutoB: produtosSimples.keySet()) {
+		for (ProdutoId chaveProdutoB: produtosSimples.keySet()) {
 			if (produtosSimples.get(chaveProdutoB).equals(produtoA)) {
 				this.produtosSimples.get(chaveProdutoB).setPreco(novoPreco);
 				resultado = true;
@@ -144,7 +188,7 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	 */
 	public boolean removerProduto(ProdutoSimples produtoB) {
 		boolean resultado = false;
-		List<ProdutoSimplesId> chaves = new ArrayList<ProdutoSimplesId>(this.produtosSimples.keySet());
+		List<ProdutoId> chaves = new ArrayList<ProdutoId>(this.produtosSimples.keySet());
 		for (int i = 0; i < chaves.size(); i++) {
 			if (produtosSimples.get(chaves.get(i)).equals(produtoB)) {
 				produtosSimples.remove(chaves.get(i));
@@ -271,6 +315,8 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		// TODO Auto-generated method stub
 		return this.produtosSimples.values();
 	}
+	
+	
 
 	
 

@@ -1,10 +1,10 @@
 package SAGA;
 
-public class ProdutoSimplesId {
+public class ProdutoId {
 	private String nome;
 	private String descricao;
 	
-	public ProdutoSimplesId(String nome, String descricao) {
+	public ProdutoId(String nome, String descricao) {
 		this.nome = nome;
 		this.descricao = descricao;
 	}
@@ -26,7 +26,7 @@ public class ProdutoSimplesId {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ProdutoSimplesId other = (ProdutoSimplesId) obj;
+		ProdutoId other = (ProdutoId) obj;
 		if (descricao == null) {
 			if (other.descricao != null)
 				return false;

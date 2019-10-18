@@ -16,7 +16,7 @@ public class Facade {
 	 * Construtor que inicializa os controllers do sistema.
 	 */
 	public Facade() {
-		this.controleClientes = new ControllerCliente(controleFornecedores);
+		this.controleClientes = new ControllerCliente();
 		this.controleFornecedores = new ControllerFornecedor();
 		this.controleProdutos = new ControllerProduto(controleFornecedores);
 		this.controlContas = new ControllerConta(controleClientes, controleFornecedores);
@@ -86,7 +86,9 @@ public class Facade {
 		return controleProdutos.removerProduto(nomeProduto, descricaoProduto, nomeFornecedor);
 	}
 	
-	
+	public boolean adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
+		return controleProdutos.adicionaCombo(fornecedor, nome, descricao, fator, produtos);
+	}
 	
 	public boolean adicionaCompra(String cpf, String fornecedor, String data, String nome_prod, String desc_prod) {
 		return controlContas.adicionaCompra(cpf, fornecedor, data, nome_prod, desc_prod);

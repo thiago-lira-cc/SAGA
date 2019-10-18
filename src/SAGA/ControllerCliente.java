@@ -23,7 +23,7 @@ public class ControllerCliente {
 	/**
 	 * Construtor que inicia o mapa de clientes
 	 */
-	public ControllerCliente(ControllerFornecedor controlFornProd) {
+	public ControllerCliente() {
 		this.clientes = new HashMap<>();
 		this.excecao  = new Excecao();
 	}
