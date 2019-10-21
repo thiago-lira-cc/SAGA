@@ -40,12 +40,8 @@ public class ProdutoId {
 		return true;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public String getDescricao() {
-		return descricao;
+	public String getID() {
+		return nome+" - "+descricao;
 	}
 	
 }

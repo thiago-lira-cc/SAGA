@@ -4,11 +4,12 @@ package SAGA;
  * @author Thiago Lira.
  *
  */
-public class ProdutoSimples implements Comparable<ProdutoSimples>{
+public class ProdutoSimples implements Produto{
 
 	private String nome;
 	private String descricao;
 	private double preco;
+	private String tipo;
 
 	/**
 	 * Contrói um produto com os parametros passados
@@ -20,6 +21,7 @@ public class ProdutoSimples implements Comparable<ProdutoSimples>{
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
+		this.tipo = "Simples";
 	}
 	/**
 	 * Constrói um produto usando apenas nome e descrição
@@ -30,14 +32,31 @@ public class ProdutoSimples implements Comparable<ProdutoSimples>{
 		this.nome = nomeProduto;
 		this.descricao = descricaoProduto;
 	}
-
-	public String getNomeEDescricao() {
-		return nome+" - "+descricao;
-	}
 	
 	public void setPreco(double novoPreco) {
 		this.preco = novoPreco;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	public String getIdentificador() {
+		return this.nome+ " - "+ this.descricao;
+	}
+
+	public double getPreco() {
+		return preco;
+	}
+	
+	public String getTipo() {
+		return this.tipo;
+	}
+	
 	/**
 	 * Representação textual de um produto
 	 */
@@ -54,7 +73,6 @@ public class ProdutoSimples implements Comparable<ProdutoSimples>{
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -76,18 +94,11 @@ public class ProdutoSimples implements Comparable<ProdutoSimples>{
 			return false;
 		return true;
 	}
-
-	public String getIdentificador() {
-		return this.nome+ " - "+ this.descricao;
-	}
-
-	public double getPreco() {
-		return preco;
-	}
-
+	
 	@Override
-	public int compareTo(ProdutoSimples outroProduto) {
-		return this.getIdentificador().compareTo(outroProduto.getIdentificador());
+	public int compareTo(Produto outroProduto) {
+		// TODO Auto-generated method stub
+		return this.nome.compareTo(outroProduto.getNome());
 	}
 	
 }

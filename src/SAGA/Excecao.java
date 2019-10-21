@@ -74,7 +74,7 @@ public class Excecao {
 	 * @param fator e msg de erro.
 	 */
 	public void verificaFator(double fator, String msg) {
-		if (fator<0|fator>=1) {
+		if (fator<=0|fator>=1) {
 			throw new IllegalArgumentException(msg);
 		}
 		

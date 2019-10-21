@@ -152,9 +152,8 @@ public class ControllerProduto {
 		excecao.verificaStringNula(nomeFornecedor, "Erro na remocao de produto: fornecedor nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(nomeFornecedor, "Erro na remocao de produto: fornecedor nao pode ser vazio ou nulo.");
 		if (this.controlForn.getFornecedores().containsKey(nomeFornecedor)) {
-			ProdutoSimples produto = new ProdutoSimples(nomeProduto, descricaoProduto);
 			if (this.controlForn.getFornecedores().get(nomeFornecedor).contemProduto(nomeProduto, descricaoProduto)) {
-				return this.controlForn.getFornecedores().get(nomeFornecedor).removerProduto(produto);
+				return this.controlForn.getFornecedores().get(nomeFornecedor).removerProduto(nomeProduto, descricaoProduto);
 			}
 			throw new IllegalArgumentException("Erro na remocao de produto: produto nao existe.");
 		}
@@ -177,6 +176,25 @@ public class ControllerProduto {
 		}
 		
 		throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao existe.");
+	}
+	public boolean editarCombo(String nome, String descricao, String fornecedor, double novoFator) {
+		excecao.verificaStringNula(descricao, "Erro na edicao de combo: descricao nao pode ser vazia ou nula.");
+		excecao.verificaStringVazia(descricao, "Erro na edicao de combo: descricao nao pode ser vazia ou nula.");
+		excecao.verificaStringNula(nome, "Erro na edicao de combo: nome nao pode ser vazio ou nulo.");
+		excecao.verificaStringVazia(nome, "Erro na edicao de combo: nome nao pode ser vazio ou nulo.");
+		excecao.verificaStringNula(fornecedor, "Erro na edicao de combo: fornecedor nao pode ser vazio ou nulo.");
+		excecao.verificaStringVazia(fornecedor, "Erro na edicao de combo: fornecedor nao pode ser vazio ou nulo.");
+		excecao.verificaFator(novoFator, "Erro na edicao de combo: fator invalido.");
+		
+		if (this.controlForn.getFornecedores().containsKey(fornecedor)) {
+			ProdutoCombo produto = new ProdutoCombo(nome, descricao);
+			
+			if(this.controlForn.getFornecedores().get(fornecedor).contemProduto(nome, descricao)) {
+				return this.controlForn.getFornecedores().get(fornecedor).editarProduto(produto, novoFator);
+			}
+			throw new IllegalArgumentException("Erro na edicao de combo: produto nao existe.");
+		}
+		throw new IllegalArgumentException("Erro na edicao de combo: fornecedor nao existe.");
 	}
 
 }

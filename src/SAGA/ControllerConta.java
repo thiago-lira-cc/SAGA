@@ -49,7 +49,7 @@ public class ControllerConta {
 	
 		if (this.controlClientes.getClientes().containsKey(cpf)) {
 			if (this.controlFornecedores.getFornecedores().containsKey(fornecedor)) {
-				ProdutoSimples produto = new ProdutoSimples(nome_prod, desc_prod);
+				ProdutoId produto = new ProdutoId(nome_prod, desc_prod);
 				Cliente cliente = this.controlClientes.getClientes().get(cpf);
 				return this.controlFornecedores.getFornecedores().get(fornecedor).adicionaCompra(cliente, data, nome_prod, desc_prod, this.controlFornecedores.getFornecedores().get(fornecedor).getPrecoProd(produto));	
 			}else {

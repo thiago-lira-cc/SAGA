@@ -90,6 +90,10 @@ public class Facade {
 		return controleProdutos.adicionaCombo(fornecedor, nome, descricao, fator, produtos);
 	}
 	
+	public boolean editaCombo(String nome, String descricao, String fornecedor, double novoFator) {
+		return controleProdutos.editarCombo(nome, descricao, fornecedor, novoFator);
+	}
+	
 	public boolean adicionaCompra(String cpf, String fornecedor, String data, String nome_prod, String desc_prod) {
 		return controlContas.adicionaCompra(cpf, fornecedor, data, nome_prod, desc_prod);
 	}
