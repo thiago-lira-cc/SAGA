@@ -96,7 +96,6 @@ public class Cliente implements Comparable<Cliente> {
 
 	@Override
 	public int compareTo(Cliente outroCliente) {
-		// TODO Auto-generated method stub
 		return this.nome.compareTo(outroCliente.getNome());
 	}
 

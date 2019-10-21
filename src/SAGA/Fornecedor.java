@@ -65,7 +65,7 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	 * @param precoProduto o preço do produto.
 	 * @return retorna se o cadastro ocorreu com sucesso.
 	 */
-	public boolean cadastraProduto(String nomeProduto, String descricaoProduto, double preco) {
+	public boolean adicionaProduto(String nomeProduto, String descricaoProduto, double preco) {
 		if (!contemProduto(nomeProduto, descricaoProduto)) {
 			ProdutoSimples produto = new ProdutoSimples(nomeProduto, descricaoProduto, preco);
 			ProdutoId id = new ProdutoId(nomeProduto, descricaoProduto);
@@ -75,46 +75,6 @@ public class Fornecedor implements Comparable<Fornecedor>{
 			throw new IllegalArgumentException("Erro no cadastro de produto: produto ja existe.");
 		}
 		
-	}
-	public boolean adicionaCombo(String nome, String descricao, double fator, String produtos) {
-		if (!contemProduto(nome, descricao)) {
-			String[] produtosSep = produtos.split(", ");
-			String[] propduto1 = produtosSep[0].split(" - ");
-			ProdutoId id1 = new ProdutoId(propduto1[0], propduto1[1]);
-			
-			String[] propduto2 = produtosSep[1].split(" - ");
-			ProdutoId id2 = new ProdutoId(propduto2[0], propduto2[1]);
-			if (this.produtos.containsKey(id1) && this.produtos.containsKey(id2)) {
-				if (this.produtos.get(id1).getTipo().equals("Simples") && this.produtos.get(id2).getTipo().equals("Simples")) {
-					double precoprod1 = this.produtos.get(id1).getPreco();
-					double precoprod2 = this.produtos.get(id2).getPreco();
-					
-					ProdutoCombo combo = new ProdutoCombo(nome, descricao, fator, produtos, precoprod1, precoprod2);
-					ProdutoId id = new ProdutoId(nome, descricao);
-					this.produtos.put(id, combo);
-					return true;
-				}
-				throw new IllegalArgumentException("Erro no cadastro de combo: um combo nao pode possuir combos na lista de produtos.");
-			}
-			if (this.produtos.containsKey(id1) || this.produtos.containsKey(id2)) {
-				throw new IllegalArgumentException("Erro no cadastro de combo: um combo nao pode possuir combos na lista de produtos.");
-			}
-			throw new IllegalArgumentException("Erro no cadastro de combo: produto nao existe.");
-		}
-		throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
-	}
-	/**
-	 * Verifica se o produto já existe.
-	 * 
-	 * @param produto o produto a ser verificado
-	 * @return retorna se o produto existe ou não.
-	 */
-	public boolean contemProduto(String nome, String descricao) {
-		ProdutoId id = new ProdutoId(nome, descricao);
-		if (this.produtos.containsKey(id)) {
-			return true;
-		}
-		return false;
 	}
 
 	public String exibeProduto(String nome, String descricao) {
@@ -182,66 +142,46 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		return resultado;
 	}
 	
-	public String getNome() {
-		return nome;
-	}
-	
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	/**
-	 * Retorna preço de um produto
-	 * @param produto
-	 * @return
-	 */
-	public double getPrecoProd(ProdutoId produtoA) {
-		for (ProdutoId produtoB : produtos.keySet()) {
-			if (produtoA.equals(produtoB)) {
-				return this.produtos.get(produtoA).getPreco();
+	public boolean adicionaCombo(String nome, String descricao, double fator, String produtos) {
+		if (!contemProduto(nome, descricao)) {
+			String[] produtosSep = produtos.split(", ");
+			String[] propduto1 = produtosSep[0].split(" - ");
+			ProdutoId id1 = new ProdutoId(propduto1[0], propduto1[1]);
+			
+			String[] propduto2 = produtosSep[1].split(" - ");
+			ProdutoId id2 = new ProdutoId(propduto2[0], propduto2[1]);
+			if (this.produtos.containsKey(id1) && this.produtos.containsKey(id2)) {
+				if (this.produtos.get(id1).getTipo().equals("Simples") && this.produtos.get(id2).getTipo().equals("Simples")) {
+					double precoprod1 = this.produtos.get(id1).getPreco();
+					double precoprod2 = this.produtos.get(id2).getPreco();
+					
+					ProdutoCombo combo = new ProdutoCombo(nome, descricao, fator, produtos, precoprod1, precoprod2);
+					ProdutoId id = new ProdutoId(nome, descricao);
+					this.produtos.put(id, combo);
+					return true;
+				}
+				throw new IllegalArgumentException("Erro no cadastro de combo: um combo nao pode possuir combos na lista de produtos.");
 			}
+			if (this.produtos.containsKey(id1) || this.produtos.containsKey(id2)) {
+				throw new IllegalArgumentException("Erro no cadastro de combo: um combo nao pode possuir combos na lista de produtos.");
+			}
+			throw new IllegalArgumentException("Erro no cadastro de combo: produto nao existe.");
 		}
-		throw new IllegalArgumentException("Erro ao cadastrar compra: produto nao existe.");
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+		throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
 	}
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Fornecedor other = (Fornecedor) obj;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		return true;
-	}
 	/**
-	 * Representação String de um fornecedor no sistema.
-	 * @return retorna a representação do fornecedor no formato " nome - email - telefone".
+	 * Verifica se o produto já existe.
+	 * 
+	 * @param produto o produto a ser verificado
+	 * @return retorna se o produto existe ou não.
 	 */
-	@Override
-	public String toString() {
-		return nome + " - " + email + " - " + telefone;
+	public boolean contemProduto(String nome, String descricao) {
+		ProdutoId id = new ProdutoId(nome, descricao);
+		if (this.produtos.containsKey(id)) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -292,17 +232,78 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		}
 		return false;
 	}
+
+	
+	public String getNome() {
+		return nome;
+	}
+	
+	public Collection<Produto> getProdutos() {
+		return this.produtos.values();
+	}
+	
+	/**
+	 * Retorna preço de um produto
+	 * @param produto
+	 * @return
+	 */
+	public double getPrecoProd(ProdutoId produtoA) {
+		for (ProdutoId produtoB : produtos.keySet()) {
+			if (produtoA.equals(produtoB)) {
+				return this.produtos.get(produtoA).getPreco();
+			}
+		}
+		throw new IllegalArgumentException("Erro ao cadastrar compra: produto nao existe.");
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Fornecedor other = (Fornecedor) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
+	}
+	/**
+	 * Representação String de um fornecedor no sistema.
+	 * @return retorna a representação do fornecedor no formato " nome - email - telefone".
+	 */
+	@Override
+	public String toString() {
+		return nome + " - " + email + " - " + telefone;
+	}
+	
 	@Override
 	public int compareTo(Fornecedor o) {
 		return this.nome.compareTo(o.getNome());
 	}
-	public Collection<Produto> getProdutos() {
-		// TODO Auto-generated method stub
-		return this.produtos.values();
-	}
-	
-	
-
-	
 
 }

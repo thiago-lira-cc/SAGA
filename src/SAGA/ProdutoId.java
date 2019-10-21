@@ -9,6 +9,10 @@ public class ProdutoId {
 		this.descricao = descricao;
 	}
 
+	public String getID() {
+		return nome+" - "+descricao;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -38,10 +42,6 @@ public class ProdutoId {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
-	}
-
-	public String getID() {
-		return nome+" - "+descricao;
 	}
 	
 }

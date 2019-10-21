@@ -48,6 +48,13 @@ public class ProdutoCombo implements Produto{
 	public String getTipo() {
 		return this.tipo;
 	}
+	
+	@Override
+	public void setPreco(double novoValor) {
+		this.fator = novoValor;
+		
+	}
+	
 	/**
 	 * Representação textual de um produto
 	 */
@@ -55,8 +62,6 @@ public class ProdutoCombo implements Produto{
 	public String toString() {
 		return nome + " - " + descricao + " - R$" +String.format("%.2f", getPreco());
 	}
-
-
 
 	@Override
 	public int hashCode() {
@@ -91,15 +96,7 @@ public class ProdutoCombo implements Produto{
 
 	@Override
 	public int compareTo(Produto outroProduto) {
-		// TODO Auto-generated method stub
 		return this.nome.compareTo(outroProduto.getNome());
 	}
-
-	@Override
-	public void setPreco(double novoValor) {
-		this.fator = novoValor;
-		
-	}
-
 
 }

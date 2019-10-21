@@ -63,19 +63,19 @@ public class Facade {
 	}
 	
 	public boolean adicionaProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto, double precoProduto) {
-		return controleProdutos.cadastrarProduto(nomeFornecedor, nomeProduto, descricaoProduto, precoProduto);
+		return controleProdutos.adicionaProduto(nomeFornecedor, nomeProduto, descricaoProduto, precoProduto);
 	}
 	
 	public String exibeProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
-		return controleProdutos.retornarProduto(nomeProduto, descricaoProduto, nomeFornecedor);
+		return controleProdutos.exibeProduto(nomeProduto, descricaoProduto, nomeFornecedor);
 	}
 	
 	public String exibeProdutosFornecedor(String nomeFornecedor) {
-		return controleProdutos.retornarProdutosFornecedor(nomeFornecedor);
+		return controleProdutos.exibeProdutosDeUmFornecedor(nomeFornecedor);
 	}
 	
 	public String exibeProdutos() {
-		return controleProdutos.retronarProdutos();
+		return controleProdutos.exibeTodosOsProdutos();
 	}
 	
 	public boolean editaProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor,double novoPreco) {

@@ -35,7 +35,7 @@ public class ControllerProduto {
 	 * @param precoProduto
 	 * @return
 	 */
-	public boolean cadastrarProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto, double precoProduto) {
+	public boolean adicionaProduto(String nomeFornecedor, String nomeProduto, String descricaoProduto, double precoProduto) {
 		boolean resultado = false;
 		excecao.verificaStringNula(nomeFornecedor, "Erro no cadastro de produto: fornecedor nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(nomeFornecedor, "Erro no cadastro de produto: fornecedor nao pode ser vazio ou nulo.");
@@ -50,7 +50,7 @@ public class ControllerProduto {
 			if(this.controlForn.getFornecedores().get(nomeFornecedor).contemProduto(nomeProduto, descricaoProduto)) {
 				throw new IllegalArgumentException("Erro no cadastro de produto: produto ja existe.");
 			}else {
-				resultado = this.controlForn.getFornecedores().get(nomeFornecedor).cadastraProduto(nomeProduto, descricaoProduto, precoProduto);
+				resultado = this.controlForn.getFornecedores().get(nomeFornecedor).adicionaProduto(nomeProduto, descricaoProduto, precoProduto);
 			}
 			
 		}else {
@@ -65,7 +65,7 @@ public class ControllerProduto {
 	 * @param nomeFornecedor
 	 * @return produto formatado
 	 */
-	public String retornarProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
+	public String exibeProduto(String nomeProduto, String descricaoProduto, String nomeFornecedor) {
 		excecao.verificaStringNula(nomeFornecedor, "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(nomeFornecedor, "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.");
 		excecao.verificaStringNula(nomeProduto, "Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
@@ -87,7 +87,7 @@ public class ControllerProduto {
 	 * @param nomeFornecedor
 	 * @return string de todos os produtos achados
 	 */
-	public String retornarProdutosFornecedor(String nomeFornecedor) {
+	public String exibeProdutosDeUmFornecedor(String nomeFornecedor) {
 		excecao.verificaStringNula(nomeFornecedor, "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(nomeFornecedor, "Erro na exibicao de produto: fornecedor nao pode ser vazio ou nulo.");
 		if (this.controlForn.getFornecedores().containsKey(nomeFornecedor)) {
@@ -99,7 +99,7 @@ public class ControllerProduto {
 	 * Retorna todos os produtos cadastrados
 	 * @return string de todos os produtos cadastrados
 	 */
-	public String retronarProdutos() {
+	public String exibeTodosOsProdutos() {
 		String resultado = "";
 		List<Fornecedor> fornecedores = new ArrayList<>(this.controlForn.getFornecedores().values());
 		Collections.sort(fornecedores);

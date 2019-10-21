@@ -97,7 +97,6 @@ public class ProdutoSimples implements Produto{
 	
 	@Override
 	public int compareTo(Produto outroProduto) {
-		// TODO Auto-generated method stub
 		return this.nome.compareTo(outroProduto.getNome());
 	}
 	
