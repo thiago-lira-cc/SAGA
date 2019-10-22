@@ -110,4 +110,15 @@ public class Facade {
 		return controlContas.exibeContasClientes(cpf);
 	}
 
+	public boolean realizaPagamento(String cpf, String fornecedor) {
+		return controlContas.realizaPagamento(cpf, fornecedor);
+	}
+	
+	public void ordenaPor(String criterio) {
+		controlContas.setCriterio(criterio);
+	}
+	
+	public String listarCompras() {
+		return controlContas.listarCompras();
+	}
 }

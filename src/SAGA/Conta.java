@@ -33,13 +33,12 @@ public class Conta {
 	 * Retorna a soma do preço das contas cadastradas
 	 * @return double
 	 */
-	public String getDebito() {
+	public double getDebito() {
 		double soma = 0;
 		for (Compra compra : compras) {
 			soma += compra.getPreco();
 		}
-		String resul = String.format("%.2f", soma);
-		return resul.replace(",", ".");
+		return soma;
 	}
 	/**
 	 * Exibe as contas cadastrads no aiatema.

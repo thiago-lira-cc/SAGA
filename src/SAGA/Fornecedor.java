@@ -206,7 +206,8 @@ public class Fornecedor implements Comparable<Fornecedor>{
 
 	public String getDebito(Cliente cliente) {
 		if (this.contas.containsKey(cliente)) {
-			return this.contas.get(cliente).getDebito();
+			String resul = String.format("%.2f", this.contas.get(cliente).getDebito());
+			return resul.replace(",", ".");
 		}
 		throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao tem debito com fornecedor.");
 	}
@@ -233,6 +234,16 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		return false;
 	}
 
+	public boolean realizaPagamento(Cliente cliente) {
+		if (contemConta(cliente)) {
+			if (this.contas.get(cliente).getDebito()>0) {
+				this.contas.remove(cliente);
+				return true;
+			}
+			throw new IllegalArgumentException("Erro ao recuperar debito: cliente nao tem debito com fornecedor.");			
+		}
+		throw new IllegalArgumentException("Erro no pagamento de conta: nao ha debito do cliente associado a este fornecedor.");
+	}
 	
 	public String getNome() {
 		return nome;

@@ -1,4 +1,9 @@
 package SAGA;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Classe responsável pelas operações com Conta.
  * Adiciona compra
@@ -11,6 +16,7 @@ public class ControllerConta {
 	private Excecao excecao;
 	private ControllerCliente controlClientes;
 	private ControllerFornecedor controlFornecedores;
+	private String criterio;
 
 	/**
 	 * Construtor do controller.
@@ -21,6 +27,7 @@ public class ControllerConta {
 		this.excecao = new Excecao();
 		this.controlClientes  = controlClientesFacade;
 		this.controlFornecedores = controlFornProdFacade;
+		this.criterio = null;
 
 	}
 	/**
@@ -132,5 +139,48 @@ public class ControllerConta {
 		throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao existe.");
 		
 	}
+	public boolean realizaPagamento(String cpf, String fornecedor) {
+		excecao.verificaStringNula(cpf, "Erro no pagamento de conta: cpf nao pode ser vazio ou nulo.");
+		excecao.verificaStringVazia(cpf, "Erro no pagamento de conta: cpf nao pode ser vazio ou nulo.");
+		excecao.verificaCpf(cpf, "Erro no pagamento de conta: cpf invalido.");
+		excecao.verificaStringNula(fornecedor, "Erro no pagamento de conta: fornecedor nao pode ser vazio ou nulo.");
+		excecao.verificaStringVazia(fornecedor, "Erro no pagamento de conta: fornecedor nao pode ser vazio ou nulo.");
+		if (controlFornecedores.getFornecedores().containsKey(fornecedor)) {
+			if (controlClientes.getClientes().containsKey(cpf)) {
+				return controlFornecedores.getFornecedores().get(fornecedor).realizaPagamento(controlClientes.getClientes().get(cpf));
+			}
+			throw new IllegalArgumentException("Erro no pagamento de conta: cliente nao existe.");
+		}
+		throw new IllegalArgumentException("Erro no pagamento de conta: fornecedor nao existe.");
+	}
+	
+	public void setCriterio(String criterio) {
+		excecao.verificaStringNula(criterio, "Erro na listagem de compras: criterio nao pode ser vazio ou nulo.");
+		excecao.verificaStringVazia(criterio, "Erro na listagem de compras: criterio nao pode ser vazio ou nulo.");
+		this.criterio = criterio;
+	}
 
+	public String getCriterio() {
+		return this.criterio;
+	}
+	public String listarCompras() {
+		String resultado = "";
+		if (this.criterio==null) {
+			throw new IllegalArgumentException("Erro na listagem de compras: criterio ainda nao definido pelo sistema.");
+		}else if(this.criterio.equals("Cliente")){
+			List<Cliente> clientes = new ArrayList<Cliente>();
+			clientes.addAll(controlClientes.getClientes().values());
+			
+			Collections.sort(clientes);
+			
+			for (Cliente cliente : clientes) {
+				resultado += cliente.getNome()+", ";
+			}
+			return resultado;
+			
+		}else {
+			return null;
+		}
+		
+	}
 }
