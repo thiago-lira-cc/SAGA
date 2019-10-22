@@ -62,7 +62,7 @@ public class Excecao {
 	public void verificaData(String data) {
 	      try {
 	         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	         LocalDate d = LocalDate.parse(data, formatter);    
+	         LocalDate d = LocalDate.parse(data, formatter);
 	      } catch (DateTimeParseException e) {
 	    	  throw new IllegalArgumentException("Erro ao cadastrar compra: data invalida.");
 	      }   

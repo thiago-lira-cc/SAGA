@@ -4,7 +4,7 @@ package SAGA;
  * @author Thiago Lira.
  *
  */
-public class Compra {
+public class Compra implements Comparable<Compra>{
 	/**
 	 * A data da compra.
 	 */
@@ -66,12 +66,22 @@ public class Compra {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
+	
+	public String getCompra() {
+		return nome_prod +", "+data;
+	}
+	
 	/**
 	 * Representação textual de uma compra
 	 */
 	@Override
 	public String toString() {		
 		return nome_prod +" - "+data.replaceAll("/", "-");
+	}
+
+	@Override
+	public int compareTo(Compra outraCompra) {
+		return getCompra().compareTo(outraCompra.getCompra());
 	}
 
 }

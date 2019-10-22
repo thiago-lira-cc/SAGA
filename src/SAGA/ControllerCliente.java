@@ -63,9 +63,8 @@ public class ControllerCliente {
 	public String exibeCliente(String cpf) {
 		excecao.verificaStringNula(cpf, "Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(cpf, "Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.");
-		if(cpf.length()!=11) {
-			throw new IllegalArgumentException("cpf inválido.");
-		}
+		excecao.verificaCpf(cpf, "cpf inválido.");
+	
 		if (clientes.containsKey(cpf)) {
 			return clientes.get(cpf).toString();
 		}else {

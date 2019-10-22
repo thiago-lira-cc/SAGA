@@ -27,7 +27,7 @@ public class ControllerConta {
 		this.excecao = new Excecao();
 		this.controlClientes  = controlClientesFacade;
 		this.controlFornecedores = controlFornProdFacade;
-		this.criterio = null;
+		this.criterio = "vazio";
 
 	}
 	/**
@@ -164,23 +164,55 @@ public class ControllerConta {
 		return this.criterio;
 	}
 	public String listarCompras() {
-		String resultado = "";
-		if (this.criterio==null) {
+		
+		if (this.criterio.equals("vazio")) {
 			throw new IllegalArgumentException("Erro na listagem de compras: criterio ainda nao definido pelo sistema.");
-		}else if(this.criterio.equals("Cliente")){
-			List<Cliente> clientes = new ArrayList<Cliente>();
-			clientes.addAll(controlClientes.getClientes().values());
-			
-			Collections.sort(clientes);
-			
-			for (Cliente cliente : clientes) {
-				resultado += cliente.getNome()+", ";
-			}
-			return resultado;
-			
-		}else {
-			return null;
 		}
 		
+		if(this.criterio.equals("Cliente")){
+			return listarPorCliente();
+		}if(this.criterio.equals("Fornecedor")) {
+			return listarPorFornecedor();
+		}else if(this.criterio.equals("Data")) {
+			return listarPorData();
+		}else {
+			throw new IllegalArgumentException("Erro na listagem de compras: criterio nao oferecido pelo sistema.");
+		}
+		
+	}
+	
+	public String listarPorCliente() {
+		String resultado = "";
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		clientes.addAll(controlClientes.getClientes().values());
+		
+		Collections.sort(clientes);
+		
+		List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
+		fornecedores.addAll(controlFornecedores.getFornecedores().values());
+		
+		for (Cliente cliente : clientes) {
+			for (Fornecedor fornecedor : fornecedores) {
+				String nomeForn = fornecedor.getNome();
+				if (fornecedor.contemConta(cliente)) {
+					List<Compra> compras = new ArrayList<Compra>();
+					compras.addAll(this.controlFornecedores.getFornecedores().get(nomeForn).getContasDeUmCliente(cliente));
+					Collections.sort(compras);
+					
+					for (Compra compra : compras) {
+						resultado += cliente.getNome()+", "+fornecedor.getNome()+", "+ compra.getCompra()+ " | ";
+					}
+				}
+			}
+		}
+		return resultado;
+	}
+	
+	private String listarPorFornecedor() {
+		return null;
+	}
+	
+	private String listarPorData() {
+		return null;
 	}
 }

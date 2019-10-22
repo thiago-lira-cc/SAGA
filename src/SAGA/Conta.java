@@ -29,6 +29,10 @@ public class Conta {
 		Compra compra = new Compra(data, nome_prod, desc_prod, preco);
 		this.compras.add(compra);
 	}
+	
+	public ArrayList<Compra> getCompras() {
+		return compras;
+	}
 	/**
 	 * Retorna a soma do preço das contas cadastradas
 	 * @return double

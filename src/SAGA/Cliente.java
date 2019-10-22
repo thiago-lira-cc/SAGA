@@ -61,6 +61,9 @@ public class Cliente implements Comparable<Cliente> {
 	public String getNome() {
 		return nome;
 	}
+	public String getCpf() {
+		return cpf;
+	}
 	/**
 	 * Representação textual do cliente no formato "nome - localização - email"
 	 */

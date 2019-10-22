@@ -253,6 +253,10 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		return this.produtos.values();
 	}
 	
+	public List<Compra> getContasDeUmCliente(Cliente cliente){
+		return this.contas.get(cliente).getCompras();
+	}
+	
 	/**
 	 * Retorna preço de um produto
 	 * @param produto
