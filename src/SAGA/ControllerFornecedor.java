@@ -19,6 +19,9 @@ public class ControllerFornecedor {
 	 * Mapa de fornecedores.
 	 */
 	private Map<String, Fornecedor> fornecedores;
+	/**
+	 * Classe de exceções
+	 */
 	private Excecao excecao;
 
 	/**

@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Representação de uma compra no sistema. Cada compra tem data, nome do produto, descrição do produto e preço do produto,
+ * Representação de uma compra no sistema. Cada compra tem data, nome do produto, 
+ * descrição do produto e preço do produto, fornecedor e cliente
  * @author Thiago Lira.
  *
  */
@@ -25,8 +26,13 @@ public class Compra implements Comparable<Compra>{
 	 * O preço do produto comprado.
 	 */
 	private double preco;
-	
+	/**
+	 * Fornecedor da compra
+	 */
 	private String fornecedor;
+	/**
+	 * Cliente da compra
+	 */
 	private String cliente;
 	
 	/**
@@ -54,7 +60,10 @@ public class Compra implements Comparable<Compra>{
 	public String getCliente() {
 		return cliente;
 	}
-
+	/**
+	 * Método que retorna a data no tipo LocalDate
+	 * @return Date
+	 */
 	public LocalDate getDate() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate d = LocalDate.parse(data, formatter);
@@ -92,7 +101,10 @@ public class Compra implements Comparable<Compra>{
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-	
+	/**
+	 * Retorna representação de um compra no padrão descrição do produto + data
+	 * @return
+	 */
 	public String getCompra() {
 		return desc_prod +", "+data;
 	}
@@ -104,12 +116,18 @@ public class Compra implements Comparable<Compra>{
 	public String toString() {		
 		return nome_prod +" - "+data.replaceAll("/", "-");
 	}
-
+	/**
+	 * Compara compras pela descrição e data
+	 */
 	@Override
 	public int compareTo(Compra outraCompra) {
 		return getCompra().compareTo(outraCompra.getCompra());
 	}
-
+	/**
+	 * Compara compras pela data
+	 * @param o2
+	 * @return int
+	 */
 	public int compare(Compra o2) {
 		if (getDate().isBefore(o2.getDate())) {
 			return -1;

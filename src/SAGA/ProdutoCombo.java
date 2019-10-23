@@ -1,15 +1,47 @@
 package SAGA;
-
+/**
+ * Representação de um produto combo no sistema. Cada produto possui nome, descrição, preço e tipo
+ * @author Thiago Lira.
+ *
+ */
 public class ProdutoCombo implements Produto{
-
+	/**
+	 * Nome do produto
+	 */
 	private String nome;
+	/**
+	 * descrição de um produto
+	 */
 	private String descricao;
+	/**
+	 * Produtos que o combo é formado
+	 */
 	private String produtos;
+	/**
+	 * preço do produto 1
+	 */
 	private double precoProd1;
+	/**
+	 * preco do produto 2
+	 */
 	private double precoProd2;
+	/**
+	 * Fator de desconto
+	 */
 	private double fator;
+	/**
+	 * Tipo de produto
+	 */
 	private String tipo;
-
+	/**
+	 * Constrói um combo
+	 * @param nome
+	 * @param descricao
+	 * @param fator
+	 * @param produtos
+	 * @param precoprod1
+	 * @param precoprod2
+	 */
 	public ProdutoCombo(String nome, String descricao, double fator, String produtos, double precoprod1, double precoprod2) {
 		this.nome = nome;
 		this.descricao = descricao;
@@ -19,7 +51,11 @@ public class ProdutoCombo implements Produto{
 		this.fator = fator;
 		this.tipo = "Combo";
 	}
-
+	/**
+	 * Constrói um combo a partir do nome e descrição
+	 * @param nome
+	 * @param descricao
+	 */
 	public ProdutoCombo(String nome, String descricao) {
 		this.nome = nome;
 		this.descricao = descricao;

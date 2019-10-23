@@ -1,14 +1,25 @@
 package SAGA;
 /**
- * Representação de um produto no sistema. Cada produto possui nome, descrição, preço e tipo
+ * Representação de um produto simples no sistema. Cada produto possui nome, descrição, preço e tipo
  * @author Thiago Lira.
  *
  */
 public class ProdutoSimples implements Produto{
-
+	/**
+	 * Nome do produto
+	 */
 	private String nome;
+	/**
+	 * Descrição de um produto
+	 */
 	private String descricao;
+	/**
+	 * Preço de um produto
+	 */
 	private double preco;
+	/**
+	 * Tipo de um produto
+	 */
 	private String tipo;
 
 	/**

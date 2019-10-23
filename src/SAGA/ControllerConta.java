@@ -140,6 +140,12 @@ public class ControllerConta {
 		throw new IllegalArgumentException("Erro ao exibir contas do cliente: cliente nao existe.");
 		
 	}
+	/**
+	 * Realiza pagamento da conta de um cliente em um fornecedor
+	 * @param cpf
+	 * @param fornecedor
+	 * @return boolean
+	 */
 	public boolean realizaPagamento(String cpf, String fornecedor) {
 		excecao.verificaStringNula(cpf, "Erro no pagamento de conta: cpf nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(cpf, "Erro no pagamento de conta: cpf nao pode ser vazio ou nulo.");
@@ -154,7 +160,10 @@ public class ControllerConta {
 		}
 		throw new IllegalArgumentException("Erro no pagamento de conta: fornecedor nao existe.");
 	}
-	
+	/**
+	 * Muda o criterio de listagem das compras
+	 * @param criterio
+	 */
 	public void setCriterio(String criterio) {
 		excecao.verificaStringNula(criterio, "Erro na listagem de compras: criterio nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(criterio, "Erro na listagem de compras: criterio nao pode ser vazio ou nulo.");
@@ -162,10 +171,10 @@ public class ControllerConta {
 		this.criterio = criterio;
 		this.ehPrimeiraListagem = false;
 	}
-
-	public String getCriterio() {
-		return this.criterio;
-	}
+	/**
+	 * Exibe a lista de compras
+	 * @return String
+	 */
 	public String listarCompras() {
 		
 		
@@ -182,7 +191,10 @@ public class ControllerConta {
 		}
 		
 	}
-	
+	/**
+	 * Listagem de compras por cliente
+	 * @return String
+	 */
 	public String listarPorCliente() {
 		String resultado = "";
 		List<Cliente> clientes = new ArrayList<Cliente>();
@@ -210,7 +222,10 @@ public class ControllerConta {
 		resultado = resultado.substring(0, resultado.length()-3);
 		return resultado;
 	}
-	
+	/**
+	 * Listagem de compras por fornecedor
+	 * @return String
+	 */
 	private String listarPorFornecedor() {
 		String resultado = "";
 		
@@ -239,7 +254,10 @@ public class ControllerConta {
 		resultado = resultado.substring(0, resultado.length()-3);
 		return resultado;
 	}
-	
+	/**
+	 * Listagem de compras por data
+	 * @return String
+	 */
 	private String listarPorData() {
 		String resultado = "";
 		List<Compra> compras = new ArrayList<Compra>();

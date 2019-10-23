@@ -1,6 +1,5 @@
 package SAGA;
 
-import java.awt.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -62,9 +61,11 @@ public class Excecao {
 	 * @param data e mensagem de erro.
 	 */
 	public void verificaData(String data) {
-	      try {
-	         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	         LocalDate d = LocalDate.parse(data, formatter);
+		
+		try {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+			LocalDate d = LocalDate.parse(data, formatter);
+	         
 	      } catch (DateTimeParseException e) {
 	    	  throw new IllegalArgumentException("Erro ao cadastrar compra: data invalida.");
 	      }   
@@ -79,6 +80,11 @@ public class Excecao {
 		}
 		
 	}
+	/**
+	 * Método responsável por verificar se o criterio é válido ou não
+	 * @param criterio
+	 * @param msg
+	 */
 	public void verificaCriterio(String criterio, String msg) {
 		ArrayList<String> criterios = new ArrayList<String>();
 		criterios.add("Cliente");

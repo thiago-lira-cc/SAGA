@@ -13,7 +13,9 @@ import java.util.List;
  * Remove produto
  */
 public class ControllerProduto {
-
+	/**
+	 * Classe de exceções
+	 */
 	private Excecao excecao;
 	/**
 	 * Controller fornecedor onde tem os fornecedores cadastrados
@@ -73,12 +75,7 @@ public class ControllerProduto {
 		excecao.verificaStringNula(descricaoProduto, "Erro na exibicao de produto: descricao nao pode ser vazia ou nula.");
 		excecao.verificaStringVazia(descricaoProduto, "Erro na exibicao de produto: descricao nao pode ser vazia ou nula.");
 		if (this.controlForn.getFornecedores().containsKey(nomeFornecedor)) {	
-
-			//if (this.controlForn.getFornecedores().get(nomeFornecedor).contemProduto(nomeProduto, descricaoProduto)) {
-				return this.controlForn.getFornecedores().get(nomeFornecedor).exibeProduto(nomeProduto, descricaoProduto);
-			//}else {
-				//throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
-			//}
+			return this.controlForn.getFornecedores().get(nomeFornecedor).exibeProduto(nomeProduto, descricaoProduto);
 		}
 		throw new IllegalArgumentException("Erro na exibicao de produto: fornecedor nao existe.");
 	}
@@ -159,6 +156,15 @@ public class ControllerProduto {
 		}
 		throw new IllegalArgumentException("Erro na remocao de produto: fornecedor nao existe.");
 	}
+	/**
+	 * Método que adiciona um Combo ao sistema
+	 * @param fornecedor
+	 * @param nome
+	 * @param descricao
+	 * @param fator
+	 * @param produtos
+	 * @return boolean
+	 */
 	public boolean adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos) {
 		excecao.verificaStringNula(fornecedor, "Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(fornecedor, "Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
@@ -177,6 +183,14 @@ public class ControllerProduto {
 		
 		throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao existe.");
 	}
+	/**
+	 * Edita o fator de desconto de um Combo
+	 * @param nome
+	 * @param descricao
+	 * @param fornecedor
+	 * @param novoFator
+	 * @return bollean
+	 */
 	public boolean editarCombo(String nome, String descricao, String fornecedor, double novoFator) {
 		excecao.verificaStringNula(descricao, "Erro na edicao de combo: descricao nao pode ser vazia ou nula.");
 		excecao.verificaStringVazia(descricao, "Erro na edicao de combo: descricao nao pode ser vazia ou nula.");

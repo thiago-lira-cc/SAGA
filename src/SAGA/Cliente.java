@@ -46,7 +46,7 @@ public class Cliente implements Comparable<Cliente> {
 		this.email = email;
 		this.localizacao = localizacao;
 	}
-
+	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -96,7 +96,9 @@ public class Cliente implements Comparable<Cliente> {
 			return false;
 		return true;
 	}
-
+	/**
+	 * Método que compara um cliente com o outro a partir do nome
+	 */
 	@Override
 	public int compareTo(Cliente outroCliente) {
 		return this.nome.compareTo(outroCliente.getNome());

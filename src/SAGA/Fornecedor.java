@@ -12,7 +12,9 @@ import java.util.Map;
  *
  */
 public class Fornecedor implements Comparable<Fornecedor>{
-
+	/**
+	 * Classe de exceções
+	 */
 	private Excecao excecao = new Excecao();
 	/**
 	 * O nome do fornecedor.
@@ -76,7 +78,12 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		}
 		
 	}
-
+	/**
+	 * Retorna a representação textual de um determinado produto
+	 * @param nome
+	 * @param descricao
+	 * @return String
+	 */
 	public String exibeProduto(String nome, String descricao) {
 		ProdutoId id = new ProdutoId(nome, descricao);
 		if (produtos.containsKey(id)) {
@@ -141,7 +148,14 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		}
 		return resultado;
 	}
-	
+	/**
+	 * Método que adiciona um combo ao fornecedor
+	 * @param nome
+	 * @param descricao
+	 * @param fator
+	 * @param produtos
+	 * @return bollean
+	 */
 	public boolean adicionaCombo(String nome, String descricao, double fator, String produtos) {
 		if (!contemProduto(nome, descricao)) {
 			String[] produtosSep = produtos.split(", ");
@@ -205,7 +219,11 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		}
 		return false;
 	}
-
+	/**
+	 * Método que retorna o débito de um cliente no fornecedor
+	 * @param cliente
+	 * @return String formatada do debito
+	 */
 	public String getDebito(Cliente cliente) {
 		if (this.contas.containsKey(cliente)) {
 			String resul = String.format("%.2f", this.contas.get(cliente).getDebito());
@@ -225,7 +243,7 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		throw new IllegalArgumentException("Erro ao exibir conta do cliente: cliente nao tem nenhuma conta com o fornecedor.");
 	}
 	/**
-	 * Verifica se um produto está cadastrado
+	 * Verifica se uma conta está cadastrado
 	 * @param cliente
 	 * @return boolean true ou false
 	 */
@@ -235,7 +253,11 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		}
 		return false;
 	}
-
+	/**
+	 * Realiza o pagamento de uma conta de um cliente
+	 * @param cliente
+	 * @return boolean
+	 */
 	public boolean realizaPagamento(Cliente cliente) {
 		if (contemConta(cliente)) {
 			if (this.contas.get(cliente).getDebito()>0) {
@@ -250,15 +272,25 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	public String getNome() {
 		return nome;
 	}
-	
+	/**
+	 * Retorna uma colação dos valores de produtos
+	 * @return collection
+	 */
 	public Collection<Produto> getProdutos() {
 		return this.produtos.values();
 	}
-	
+	/**
+	 * Retorna as contas de um cliente
+	 * @param cliente
+	 * @return lista de contas
+	 */
 	public List<Compra> getContasDeUmCliente(Cliente cliente){
 		return this.contas.get(cliente).getCompras();
 	}
-	
+	/**
+	 * Retorna uma lista com clientes que têm conta
+	 * @return lista de clientes
+	 */
 	public List<Cliente> getClientesComConta(){
 		List<Cliente> clientes = new ArrayList<Cliente>();
 		for (Cliente cliente : this.contas.keySet()) {
@@ -266,7 +298,6 @@ public class Fornecedor implements Comparable<Fornecedor>{
 		}
 		return clientes;
 	}
-	
 	/**
 	 * Retorna preço de um produto
 	 * @param produto
@@ -325,7 +356,9 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	public String toString() {
 		return nome + " - " + email + " - " + telefone;
 	}
-	
+	/**
+	 * Comparação de fornecedores a partir do nome
+	 */
 	@Override
 	public int compareTo(Fornecedor o) {
 		return this.nome.compareTo(o.getNome());
