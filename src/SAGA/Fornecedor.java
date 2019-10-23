@@ -191,15 +191,17 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	 * @param nome_prod o nome do produto comprado.
 	 * @param desc_prod a descrição do produto.
 	 * @param preco o preço do produto
+	 * @param string 
+	 * @param fornecedor 
 	 * @return retorna se a compra ocorreu com sucesso.
 	 */
 	public boolean adicionaCompra(Cliente cliente, String data, String nome_prod, String desc_prod, double preco) {
 		if (this.contas.containsKey(cliente)) {
-			this.contas.get(cliente).adicionaCompra(data, nome_prod, desc_prod, preco);
+			this.contas.get(cliente).adicionaCompra(data, nome_prod, desc_prod, preco, this.nome, cliente.getNome());
 		}else {
 			Conta conta = new Conta();
 			this.contas.put(cliente, conta);
-			this.contas.get(cliente).adicionaCompra(data, nome_prod, desc_prod, preco);
+			this.contas.get(cliente).adicionaCompra(data, nome_prod, desc_prod, preco, this.nome, cliente.getNome());
 		}
 		return false;
 	}
@@ -255,6 +257,14 @@ public class Fornecedor implements Comparable<Fornecedor>{
 	
 	public List<Compra> getContasDeUmCliente(Cliente cliente){
 		return this.contas.get(cliente).getCompras();
+	}
+	
+	public List<Cliente> getClientesComConta(){
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		for (Cliente cliente : this.contas.keySet()) {
+			clientes.add(cliente);
+		}
+		return clientes;
 	}
 	
 	/**

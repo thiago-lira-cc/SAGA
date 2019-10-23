@@ -1,8 +1,10 @@
 package SAGA;
 
+import java.awt.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 /**
  * Classe responsável por determinar as excecões do sistema.
  * @author Thiago Lira.
@@ -73,6 +75,16 @@ public class Excecao {
 	 */
 	public void verificaFator(double fator, String msg) {
 		if (fator<=0|fator>=1) {
+			throw new IllegalArgumentException(msg);
+		}
+		
+	}
+	public void verificaCriterio(String criterio, String msg) {
+		ArrayList<String> criterios = new ArrayList<String>();
+		criterios.add("Cliente");
+		criterios.add("Fornecedor");
+		criterios.add("Data");
+		if (!criterios.contains(criterio)) {
 			throw new IllegalArgumentException(msg);
 		}
 		

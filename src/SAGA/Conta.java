@@ -24,9 +24,11 @@ public class Conta {
 	 * @param nome_prod o nome do produto comprado
 	 * @param desc_prod a descrição do produto
 	 * @param preco o preço do produto.
+	 * @param cliente 
+	 * @param fornecedor 
 	 */
-	public void adicionaCompra(String data, String nome_prod, String desc_prod, double preco) {
-		Compra compra = new Compra(data, nome_prod, desc_prod, preco);
+	public void adicionaCompra(String data, String nome_prod, String desc_prod, double preco, String fornecedor, String cliente) {
+		Compra compra = new Compra(data, nome_prod, desc_prod, preco, fornecedor, cliente);
 		this.compras.add(compra);
 	}
 	

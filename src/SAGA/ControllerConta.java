@@ -17,6 +17,7 @@ public class ControllerConta {
 	private ControllerCliente controlClientes;
 	private ControllerFornecedor controlFornecedores;
 	private String criterio;
+	private boolean ehPrimeiraListagem = true;
 
 	/**
 	 * Construtor do controller.
@@ -157,7 +158,9 @@ public class ControllerConta {
 	public void setCriterio(String criterio) {
 		excecao.verificaStringNula(criterio, "Erro na listagem de compras: criterio nao pode ser vazio ou nulo.");
 		excecao.verificaStringVazia(criterio, "Erro na listagem de compras: criterio nao pode ser vazio ou nulo.");
+		excecao.verificaCriterio(criterio, "Erro na listagem de compras: criterio nao oferecido pelo sistema.");
 		this.criterio = criterio;
+		this.ehPrimeiraListagem = false;
 	}
 
 	public String getCriterio() {
@@ -165,7 +168,8 @@ public class ControllerConta {
 	}
 	public String listarCompras() {
 		
-		if (this.criterio.equals("vazio")) {
+		
+		if (ehPrimeiraListagem==true) {
 			throw new IllegalArgumentException("Erro na listagem de compras: criterio ainda nao definido pelo sistema.");
 		}
 		
@@ -173,10 +177,8 @@ public class ControllerConta {
 			return listarPorCliente();
 		}if(this.criterio.equals("Fornecedor")) {
 			return listarPorFornecedor();
-		}else if(this.criterio.equals("Data")) {
-			return listarPorData();
 		}else {
-			throw new IllegalArgumentException("Erro na listagem de compras: criterio nao oferecido pelo sistema.");
+			return listarPorData();
 		}
 		
 	}
@@ -185,11 +187,11 @@ public class ControllerConta {
 		String resultado = "";
 		List<Cliente> clientes = new ArrayList<Cliente>();
 		clientes.addAll(controlClientes.getClientes().values());
-		
 		Collections.sort(clientes);
 		
 		List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
 		fornecedores.addAll(controlFornecedores.getFornecedores().values());
+		Collections.sort(fornecedores);
 		
 		for (Cliente cliente : clientes) {
 			for (Fornecedor fornecedor : fornecedores) {
@@ -205,14 +207,67 @@ public class ControllerConta {
 				}
 			}
 		}
+		resultado = resultado.substring(0, resultado.length()-3);
 		return resultado;
 	}
 	
 	private String listarPorFornecedor() {
-		return null;
+		String resultado = "";
+		
+		List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
+		fornecedores.addAll(controlFornecedores.getFornecedores().values());
+		Collections.sort(fornecedores);
+		
+		for (Fornecedor fornecedor : fornecedores) {
+			String nomeForn = fornecedor.getNome();
+			List<Cliente> clientes = new ArrayList<Cliente>();
+			clientes.addAll(this.controlFornecedores.getFornecedores().get(nomeForn).getClientesComConta());
+			Collections.sort(clientes);
+			
+			for (Cliente cliente : clientes) {
+				if (fornecedor.contemConta(cliente)) {
+					List<Compra> compras = new ArrayList<Compra>();
+					compras.addAll(this.controlFornecedores.getFornecedores().get(nomeForn).getContasDeUmCliente(cliente));
+					Collections.sort(compras);
+						
+					for (Compra compra : compras) {
+						resultado += fornecedor.getNome()+", "+cliente.getNome()+", "+ compra.getCompra()+ " | ";
+					}
+				}
+			}	
+		}
+		resultado = resultado.substring(0, resultado.length()-3);
+		return resultado;
 	}
 	
 	private String listarPorData() {
-		return null;
+		String resultado = "";
+		List<Compra> compras = new ArrayList<Compra>();
+		List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
+		fornecedores.addAll(controlFornecedores.getFornecedores().values());
+		
+		for (Fornecedor fornecedor : fornecedores) {
+			String nomeForn = fornecedor.getNome();
+			List<Cliente> clientes = new ArrayList<Cliente>();
+			clientes.addAll(this.controlFornecedores.getFornecedores().get(nomeForn).getClientesComConta());
+			
+			for (Cliente cliente : clientes) {
+				if (fornecedor.contemConta(cliente)) {
+					
+					compras.addAll(this.controlFornecedores.getFornecedores().get(nomeForn).getContasDeUmCliente(cliente));
+
+				}
+			}	
+		}
+		
+		Collections.sort(compras, new ComparadorDeComprasPorData());
+		
+		for (Compra compra : compras) {
+			resultado += compra.getData()+", "+compra.getCliente()+", "+compra.getFornecedor()+", "+compra.getDesc_prod()+ " | ";
+		}
+		
+		resultado = resultado.substring(0, resultado.length()-3);
+		return resultado;
+		
 	}
 }
